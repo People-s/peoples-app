@@ -11,10 +11,18 @@ import {
 } from "@chakra-ui/react"
 import { ColorModeSwitcher } from "./ColorModeSwitcher"
 import { Logo } from "./Logo"
+import { Route, Routes } from "react-router-dom"
+import Home from "./Pages/Home/Home"
+import Dashboard from "./Pages/Application/Dashboard"
 
 export const App = () => (
   <ChakraProvider theme={theme}>
-    <Box textAlign="center" fontSize="xl">
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/application" element={<Dashboard />} />
+    </Routes>
+
+    {/* <Box textAlign="center" fontSize="xl">
       <Grid minH="100vh" p={3}>
         <ColorModeSwitcher justifySelf="flex-end" />
         <VStack spacing={8}>
@@ -33,6 +41,6 @@ export const App = () => (
           </Link>
         </VStack>
       </Grid>
-    </Box>
+    </Box> */}
   </ChakraProvider>
 )
