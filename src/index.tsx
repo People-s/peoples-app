@@ -5,12 +5,23 @@ import { BrowserRouter } from "react-router-dom";
 import { App } from "./App"
 import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
+import { DAppProvider, Rinkeby, Config } from "@usedapp/core"
+
+
+const dappProviderConfig: Config = {
+  readOnlyChainId: Rinkeby.chainId,
+  readOnlyUrls: {
+    [Rinkeby.chainId]: 'https://rinkeby.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad',
+  },
+}
 
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
     <BrowserRouter>
-      <App />
+      <DAppProvider config={dappProviderConfig}>
+        <App />
+      </DAppProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root"),

@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Box, Button } from "@chakra-ui/react";
 import { Link, useRoutes } from "react-router-dom";
+import CreateNetworks from "./CreateNetworks";
 
 
 
@@ -10,6 +11,13 @@ const Dashboard: FC = () => {
             This is the Aplication Dashboard
         </Box>
         <Link to="/"><Button>Go to Home</Button></Link>
+
+        {/* Create networks preview  */}
+        <CreateNetworks />
+
+
+
+
     </>)
 }
 
