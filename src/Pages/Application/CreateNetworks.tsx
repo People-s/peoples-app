@@ -2,6 +2,7 @@
 import { useEthers, useEtherBalance } from '@usedapp/core'
 import { defaultAbiCoder } from 'ethers/lib/utils';
 
+
 import {
     LensHub__factory
 } from '../../typechain-types';
@@ -11,10 +12,12 @@ import { Contract } from "@ethersproject/contracts";
 import { constants, utils } from "ethers"
 import addresses from '../../addresses.json'
 import { Box, Button, Input } from "@chakra-ui/react";
+import Web3Modal from '@0xsequence/web3modal'
 
 
 import { CreateProfileDataStruct } from '../../typechain-types/LensHub';
 import { useState } from 'react';
+import ConnectButton from '../../Components/ConnectButton/ConnectButton';
 
 function CreateNetworks() {
 
@@ -45,7 +48,7 @@ function CreateNetworks() {
     const [currencyAddress, setCurrencyAddress] = useState(constants.AddressZero);
 
 
-    const { activateBrowserWallet, deactivate, account } = useEthers()
+    const { activate, deactivate, account } = useEthers()
 
     function createNetwork() {
 
@@ -100,14 +103,12 @@ function CreateNetworks() {
 
     }
 
+    
+
 
     return (
         <>
-            <div>
-                {!account && <Button onClick={activateBrowserWallet}> Connect </Button>}
-                {account && <Button onClick={deactivate}> Disconnect </Button>}
-                {account && <p>Connected account: {account}</p>}
-            </div>
+            <ConnectButton />
 
             {/* <Button onClick={unPause}>Unpause</Button> */}
             <Button onClick={createNetwork}>Create network</Button>
@@ -129,9 +130,6 @@ function CreateNetworks() {
             </div>
             <div> Currency Address :
                 <Input onChange={(e) => { setCurrencyAmount(e.target.value) }}></Input>
-            </div>
-            <div>
-
             </div>
         </>
     )
