@@ -1,28 +1,23 @@
-import * as React from "react"
-import {
-  ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  theme,
-} from "@chakra-ui/react"
-import { ColorModeSwitcher } from "./ColorModeSwitcher"
-import { Logo } from "./Logo"
-import { Route, Routes } from "react-router-dom"
-import Home from "./Pages/Home/Home"
-import Dashboard from "./Pages/Application/Dashboard"
+import * as React from "react";
+import { ChakraProvider, theme } from "@chakra-ui/react";
+// import { ColorModeSwitcher } from "./ColorModeSwitcher";
+import { Route, Routes, useLocation } from "react-router-dom";
+import Home from "./Pages/Home/Home";
+import Dashboard from "./Pages/Application/Dashboard";
 
-export const App = () => (
-  <ChakraProvider theme={theme}>
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/application" element={<Dashboard />} />
-    </Routes>
+import Header from "./Components/Header/Header";
 
+export const App = () => {
+  const location = useLocation();
+  console.log(location.pathname);
 
-
-  </ChakraProvider>
-)
+  return (
+    <ChakraProvider theme={theme}>
+      {location.pathname !== "/" && <Header />}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </ChakraProvider>
+  );
+};
