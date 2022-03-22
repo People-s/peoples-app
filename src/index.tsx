@@ -6,7 +6,7 @@ import { App } from "./App"
 import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
 import { DAppProvider, Rinkeby, Config } from "@usedapp/core"
-
+import Web3ModalProvider from "./Components/Web3Modal/Web3Modal"
 
 const dappProviderConfig: Config = {
   readOnlyChainId: Rinkeby.chainId,
@@ -20,7 +20,9 @@ ReactDOM.render(
     <ColorModeScript />
     <BrowserRouter>
       <DAppProvider config={dappProviderConfig}>
+        <Web3ModalProvider>
         <App />
+        </Web3ModalProvider>
       </DAppProvider>
     </BrowserRouter>
   </React.StrictMode>,

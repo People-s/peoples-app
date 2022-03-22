@@ -1,5 +1,4 @@
 
-import { useEthers, useEtherBalance } from '@usedapp/core'
 import { defaultAbiCoder } from 'ethers/lib/utils';
 
 
@@ -11,8 +10,7 @@ import { useContractFunction } from '../../Hooks/UseContractFunction'
 import { Contract } from "@ethersproject/contracts";
 import { constants, utils } from "ethers"
 import addresses from '../../addresses.json'
-import { Box, Button, Input } from "@chakra-ui/react";
-import Web3Modal from '@0xsequence/web3modal'
+import { Button, Input } from "@chakra-ui/react";
 
 
 import { CreateProfileDataStruct } from '../../typechain-types/LensHub';
@@ -46,9 +44,6 @@ function CreateNetworks() {
     const [currencyAmount, setCurrencyAmount] = useState("0");
     const [NFTAddress, setNFTAddress] = useState(constants.AddressZero);
     const [currencyAddress, setCurrencyAddress] = useState(constants.AddressZero);
-
-
-    const { activate, deactivate, account } = useEthers()
 
     function createNetwork() {
 
@@ -102,9 +97,6 @@ function CreateNetworks() {
         return followSend([1], [[]]);
 
     }
-
-    
-
 
     return (
         <>
