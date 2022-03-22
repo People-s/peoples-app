@@ -14,11 +14,16 @@ import { Logo } from "./Logo"
 import { Route, Routes } from "react-router-dom"
 import Home from "./Pages/Home/Home"
 import Dashboard from "./Pages/Application/Dashboard"
+import GuardedRoute from "./Components/GuardedRoute/GuardedRoute"
 export const App = () => (
   <ChakraProvider theme={theme}>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/application" element={<Dashboard />} />
+        <Route path="/application" element={
+          <GuardedRoute>
+            <Dashboard />
+          </GuardedRoute>
+        } />
       </Routes>
   </ChakraProvider>
 )
