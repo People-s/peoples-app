@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ConnectButton from "../../Components/ConnectButton/ConnectButton";
 
 const Home: FC = () => {
+
   return (
     <>
       <Box bg="tomato" w="100%" p={4} color="white">
@@ -16,5 +17,6 @@ const Home: FC = () => {
     </>
   );
 };
+
 
 export default Home;

@@ -5,13 +5,17 @@ import { BrowserRouter } from "react-router-dom";
 import { App } from "./App"
 import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
-import { DAppProvider, Rinkeby, Config } from "@usedapp/core"
+import { DAppProvider, Rinkeby, Config, Mumbai } from "@usedapp/core"
+import { MoralisProvider } from "react-moralis";
+
 
 
 const dappProviderConfig: Config = {
-  readOnlyChainId: Rinkeby.chainId,
+  readOnlyChainId: Mumbai.chainId,
   readOnlyUrls: {
+    [Mumbai.chainId]: 'https://polygon-mumbai.g.alchemy.com/v2/RODUefryhNJjEBJ6VyVsUH_DBEoWRZxo',
     [Rinkeby.chainId]: 'https://rinkeby.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad',
+
   },
 }
 
@@ -19,9 +23,11 @@ ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
     <BrowserRouter>
-      <DAppProvider config={dappProviderConfig}>
-        <App />
-      </DAppProvider>
+      <MoralisProvider serverUrl="https://u8qcgk2dukyn.usemoralis.com:2053/server" appId="l19ZlcLJ32Ya1NBeYGuAPoHUohs5UnMA5roDL9eS">
+        <DAppProvider config={dappProviderConfig}>
+          <App />
+        </DAppProvider>
+      </MoralisProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root"),
