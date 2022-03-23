@@ -13,6 +13,6 @@ const Home: FC = () => {
         <ConnectButton />
         <Link to="/application"><Button>Go to App</Button></Link>
     </>)
-} 
+}
 
 export default Home;
