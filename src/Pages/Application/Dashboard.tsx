@@ -1,6 +1,9 @@
 import { FC } from "react";
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import CreateNetworks from "./CreateNetworks";
+
+import Channels from "../../Components/Channels/Channels";
+import CurrentlyOnline from "../../Components/CurrentlyOnline/CurrentlyOnline";
 
 const Dashboard: FC = () => {
   return (
@@ -11,13 +14,11 @@ const Dashboard: FC = () => {
         bgColor="gray.50"
         minW="20%"
         maxW="25%"
-        p={6}
+        p={2}
         borderRadius={4}
-        boxShadow="md"
+        boxShadow="lg"
       >
-        <Heading fontSize="lg" fontWeight="light">
-          Channels
-        </Heading>
+        <Channels />
       </Box>
       <Box
         bgColor="gray.50"
@@ -25,7 +26,7 @@ const Dashboard: FC = () => {
         mx={6}
         p={6}
         borderRadius={4}
-        boxShadow="md"
+        boxShadow="lg"
       >
         <CreateNetworks />
       </Box>
@@ -33,13 +34,11 @@ const Dashboard: FC = () => {
         bgColor="gray.50"
         minW="20%"
         maxW="25%"
-        p={6}
+        p={2}
         borderRadius={4}
-        boxShadow="md"
+        boxShadow="lg"
       >
-        <Heading fontSize="lg" fontWeight="light">
-          Currently online
-        </Heading>
+        <CurrentlyOnline />
       </Box>
     </Flex>
   );
