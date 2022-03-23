@@ -18,8 +18,9 @@ import React, { useState } from "react";
 import { SettingsIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 import { Logo } from "../../Logo";
+import ConnectButton from "../ConnectButton/ConnectButton";
 
-const ConnectButton: React.FC = () => {
+const Header: React.FC = () => {
   const [isChecked, setIsChecked] = useState(false);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -77,11 +78,12 @@ const ConnectButton: React.FC = () => {
         </PopoverContent>
       </Popover>
 
-      <Button onClick={() => setIsLoggedIn(!isLoggedIn)}>
+      {/* <Button onClick={() => setIsLoggedIn(!isLoggedIn)}>
         <Text>{isLoggedIn ? "Log out" : "Log in"}</Text>
-      </Button>
+      </Button> */}
+      <ConnectButton />
     </Flex>
   );
 };
 
-export default ConnectButton;
+export default Header;

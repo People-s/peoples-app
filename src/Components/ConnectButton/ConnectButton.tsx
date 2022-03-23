@@ -1,61 +1,28 @@
-import { Button } from "@chakra-ui/react";
-import { useEthers } from "@usedapp/core";
-import React, { FC, useEffect, useState } from "react";
-import { sequence } from '0xsequence'
+import { Button, ButtonGroup, Icon, IconButton } from "@chakra-ui/react";
+import { shortenAddress } from "@usedapp/core";
+import { FC, useContext } from "react";
+import { Web3ModalContext } from "../Web3Modal/Web3Modal";
+import { HiOutlineLogout } from "react-icons/hi";
+import { useLocation, useNavigate } from "react-router-dom";
 
-import Web3Modal, { IProviderOptions } from '@0xsequence/web3modal'
-
-let providerOptions = {
-    injected: {
-        display: {
-            name: 'Metamask',
-            description: 'Connect to your MetaMask wallet',
-        },
-        package: null,
-    }
-} as IProviderOptions
-
-if (!window?.ethereum?.isSequence) {
-    providerOptions = {
-        ...providerOptions,
-        sequence: {
-            package: sequence,
-            options: {
-                appName: 'People',
-                defaultNetwork: 'rinkeby'
-            }
-        }
-    } as IProviderOptions
+interface ConnectButtonProps {
+    size?: (string & {}) | "lg" | "md" | "sm" | "xs"
 }
 
-const ConnectButton: FC = () => {
-    const [web3Modal, setWeb3Modal] = useState<Web3Modal>()
-    const { activate, deactivate, account } = useEthers();
-
-    useEffect(() => {
-        setWeb3Modal(new Web3Modal({
-            providerOptions,
-            cacheProvider: true,
-            theme: 'dark'
-        }));
-    }, []);
-
-    const activateProvider = async () => {
-        console.log(web3Modal)
-
-        try {
-            const provider = await web3Modal?.connect();
-            console.log({provider})
-            await activate(provider)
-        } catch (err: any) {
-            console.log(`ERROR: ${err}`)
-        }
-    }
-
+const ConnectButton: FC<ConnectButtonProps> = ({size}) => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    
+    // @ts-ignore
+    const from = location.state?.from?.pathname || "/dashboard"
+    
+    const { account, activateProvider, deactivateProvider } = useContext(Web3ModalContext);
     return <div>
-        {!account && <Button colorScheme='blue' onClick={activateProvider}> Connect </Button>}
-        {account && <Button colorScheme='blue' onClick={deactivate}> Disconnect </Button>}
-        {account && <p>Connected account: {account}</p>}
+        {!account && <Button size={size || 'sm'}colorScheme='blue' onClick={() => activateProvider(() => navigate(from, { replace: true }))}>Connect</Button>}
+        {account && <ButtonGroup size={size || 'sm'} isAttached colorScheme="blue">
+            <IconButton variant='outline' aria-label='Disconnect wallet' onClick={deactivateProvider} icon={<Icon as={HiOutlineLogout} />} />
+            <Button>{shortenAddress(account)}</Button>
+        </ButtonGroup>}
     </div>
 }
 

@@ -7,7 +7,7 @@ import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
 import { DAppProvider, Rinkeby, Config, Mumbai } from "@usedapp/core"
 import { MoralisProvider } from "react-moralis";
-
+import Web3ModalProvider from "./Components/Web3Modal/Web3Modal"
 
 
 const dappProviderConfig: Config = {
@@ -25,7 +25,9 @@ ReactDOM.render(
     <BrowserRouter>
       <MoralisProvider serverUrl="https://u8qcgk2dukyn.usemoralis.com:2053/server" appId="l19ZlcLJ32Ya1NBeYGuAPoHUohs5UnMA5roDL9eS">
         <DAppProvider config={dappProviderConfig}>
+        <Web3ModalProvider>
           <App />
+        </Web3ModalProvider>
         </DAppProvider>
       </MoralisProvider>
     </BrowserRouter>
