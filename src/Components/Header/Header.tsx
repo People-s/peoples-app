@@ -29,11 +29,9 @@ const ConnectButton: React.FC = () => {
   return (
     <Flex px={6} py={3} alignItems="center" flex="0 1 auto" boxShadow="md">
       <Link to="/">
-        <Flex dir="row">
+        <Flex dir="row" alignItems="center">
           <Logo h={10} mr={1} />
-          <Text mr={6} fontWeight="bold">
-            epople's
-          </Text>
+          <Text fontWeight="bold">epople's</Text>
         </Flex>
       </Link>
       <Spacer />
@@ -51,7 +49,13 @@ const ConnectButton: React.FC = () => {
       </Flex>
       <Popover>
         <PopoverTrigger>
-          <Avatar cursor="pointer" size="sm" name={userName} mr={6} />
+          <Avatar
+            cursor="pointer"
+            size="sm"
+            name={userName}
+            mr={6}
+            bgColor="blue"
+          />
         </PopoverTrigger>
         <PopoverContent>
           <PopoverArrow />
