@@ -5,7 +5,7 @@ import { sequence } from '0xsequence'
 
 export interface Web3ModalContextValue extends Pick<Web3Ethers, 'account' | 'error' | 'active'> {
     web3Modal: Web3Modal;
-    activateProvider: () => void;
+    activateProvider: (callback?:Function) => Promise<void | Function>;
     deactivateProvider: () => void;
 }
 
@@ -42,7 +42,7 @@ const web3Modal = new Web3Modal({
 export const Web3ModalContext = createContext<Web3ModalContextValue>({ web3Modal } as Web3ModalContextValue);
 
 const Web3ModalProvider: FC = ({ children }) => {
-    const { activate, deactivate, account, error, library, active } = useEthers();
+    const { activate, deactivate, account, error, active } = useEthers();
 
     useEffect(() => {
         const initCached = async () => {
@@ -54,10 +54,13 @@ const Web3ModalProvider: FC = ({ children }) => {
         initCached();
     }, [web3Modal, active]);
 
-    const activateProvider = async () => {
+    const activateProvider = async (callback?: Function) => {
         try {
             const wallet = await web3Modal.connect();
-            await activate(wallet)
+            await activate(wallet);
+            if(callback) {
+                callback()
+            }
         } catch (err: any) {
             console.log(`ERROR: ${err}`)
         }

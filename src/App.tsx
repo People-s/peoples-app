@@ -20,7 +20,7 @@ export const App = () => {
           <GuardedRoute>
             <Dashboard />
           </GuardedRoute>
-        } />
+        }/>
       </Routes>
     </ChakraProvider>
   );

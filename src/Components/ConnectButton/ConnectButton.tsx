@@ -1,14 +1,28 @@
-import { Button } from "@chakra-ui/react";
+import { Button, ButtonGroup, Icon, IconButton } from "@chakra-ui/react";
+import { shortenAddress } from "@usedapp/core";
 import { FC, useContext } from "react";
 import { Web3ModalContext } from "../Web3Modal/Web3Modal";
+import { HiOutlineLogout } from "react-icons/hi";
+import { useLocation, useNavigate } from "react-router-dom";
 
+interface ConnectButtonProps {
+    size?: (string & {}) | "lg" | "md" | "sm" | "xs"
+}
 
-const ConnectButton: FC = () => {
+const ConnectButton: FC<ConnectButtonProps> = ({size}) => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    
+    // @ts-ignore
+    const from = location.state?.from?.pathname || "/dashboard"
+    
     const { account, activateProvider, deactivateProvider } = useContext(Web3ModalContext);
     return <div>
-        {!account && <Button colorScheme='blue' onClick={activateProvider}> Connect </Button>}
-        {account && <Button colorScheme='blue' onClick={deactivateProvider}> Disconnect </Button>}
-        {account && <p>Connected account: {account}</p>}
+        {!account && <Button size={size || 'sm'}colorScheme='blue' onClick={() => activateProvider(() => navigate(from, { replace: true }))}>Connect</Button>}
+        {account && <ButtonGroup size={size || 'sm'} isAttached colorScheme="blue">
+            <IconButton variant='outline' aria-label='Disconnect wallet' onClick={deactivateProvider} icon={<Icon as={HiOutlineLogout} />} />
+            <Button>{shortenAddress(account)}</Button>
+        </ButtonGroup>}
     </div>
 }
 
