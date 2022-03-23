@@ -1,6 +1,8 @@
+// import { useEthers } from "@usedapp/core";
+import { defaultAbiCoder } from "ethers/lib/utils";
 
-import { useEthers, useEtherBalance } from '@usedapp/core'
-import { defaultAbiCoder } from 'ethers/lib/utils';
+import { LensHub__factory } from "../../typechain-types";
+
 
 import {
     LensHub__factory
@@ -252,6 +254,7 @@ function CreateNetworks() {
             </div>
         </>
     )
+
 }
 
 export default CreateNetworks;
