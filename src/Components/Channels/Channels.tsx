@@ -60,12 +60,14 @@ const Channels: React.FC = () => {
         return (
           <Flex
             dir="row"
-            px={2}
-            py={2}
+            p={3}
+            borderRadius="lg"
             cursor="pointer"
             alignItems="center"
             onClick={() => setSelectedIndex(index)}
-            bgColor={index === selectedIndex ? "gray.200" : "transparent"}
+            borderColor={index === selectedIndex ? "blue.100" : "transparent"}
+            borderWidth={1}
+            bgColor={index === selectedIndex ? "blue.50" : "transparent"}
           >
             <Avatar
               cursor="pointer"

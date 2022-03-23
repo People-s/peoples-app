@@ -54,7 +54,7 @@ const ConnectButton: React.FC = () => {
             size="sm"
             name={userName}
             mr={6}
-            bgColor="blue"
+            bgColor="blue.600"
           />
         </PopoverTrigger>
         <PopoverContent>

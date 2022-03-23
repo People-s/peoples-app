@@ -1,15 +1,5 @@
-import {
-  Heading,
-  Box,
-  Flex,
-  Avatar,
-  Text,
-  Button,
-  Spacer,
-} from "@chakra-ui/react";
+import { Heading, Box, Flex, Avatar, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
-
-import { CloseIcon } from "@chakra-ui/icons";
 
 const mockCurrentlyOnline = [
   {
@@ -67,12 +57,14 @@ const CurrentlyOnline: React.FC = () => {
         return (
           <Flex
             dir="row"
-            px={2}
-            py={2}
+            p={2}
+            borderRadius="lg"
             cursor="pointer"
             alignItems="center"
             onClick={() => setSelectedIndex(index)}
-            bgColor={index === selectedIndex ? "gray.200" : "transparent"}
+            borderWidth={1}
+            borderColor={index === selectedIndex ? "blue.100" : "transparent"}
+            bgColor={index === selectedIndex ? "blue.50" : "transparent"}
           >
             <Avatar
               cursor="pointer"
@@ -83,7 +75,12 @@ const CurrentlyOnline: React.FC = () => {
             />
             <Box overflow="hidden">
               <Text>{name}</Text>
-              <Text fontSize="sm" overflow="hidden" textOverflow="ellipsis">
+              <Text
+                fontSize="xs"
+                overflow="hidden"
+                textOverflow="ellipsis"
+                textColor="blue.300"
+              >
                 {address}
               </Text>
             </Box>
