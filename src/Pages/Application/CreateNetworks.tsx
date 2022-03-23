@@ -186,18 +186,18 @@ function CreateNetworks() {
         const data = defaultAbiCoder.encode(['address', 'uint256', 'address', 'uint256'], [NFTAddress, NFTAmount, currencyAddress, currencyAmount]);
 
         getFollowModulesEvents();
-        return setFollowModuleSend(1, addresses['Required Currency / NFT Follow Module'], data);
+        return setFollowModuleSend(14, addresses['Required Currency / NFT Follow Module'], data);
     }
 
     function followAttempt() {
-        return followSend([1], [[]]);
+        return followSend([14], [[]]);
 
     }
 
     function post() {
 
         const inputStruct: PostDataStruct = {
-            profileId: 1,
+            profileId: 14,
             contentURI:
                 'https://ipfs.fleek.co/ipfs/plantghostplantghostplantghostplantghostplantghostplantghos',
             collectModule: emptyCollectModuleAddr,
@@ -232,7 +232,9 @@ function CreateNetworks() {
                 <Input onChange={(e) => { setHandleNetwork(e.target.value) }}></Input>
             </div>
             <Divider />
-            These values are hard coded pointing to channel 1, post and  follow also hardcoded for channel 1
+
+            {/* These values are hard coded pointing to channel 14, post and  follow also hardcoded for channel 14  
+            creator of this channel is user */}
             <div> NFT Address :
                 <Input onChange={(e) => { setNFTAddress(e.target.value) }}></Input>
             </div>
