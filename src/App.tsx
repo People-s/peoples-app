@@ -16,9 +16,11 @@ export const App = () => {
       {location.pathname !== "/" && <Header />}
       <Routes>
         <Route path="/" element={<Home />} />
-        <GuardedRoute>
-          <Route path="/dashboard" element={<Dashboard />} />
-        </GuardedRoute>
+        <Route path="/dashboard" element={
+          <GuardedRoute>
+            <Dashboard />
+          </GuardedRoute>
+        } />
       </Routes>
     </ChakraProvider>
   );
