@@ -234,7 +234,7 @@ function CreateNetworks() {
             <Divider />
 
             {/* These values are hard coded pointing to channel 14, post and  follow also hardcoded for channel 14  
-            creator of this channel is user */}
+            creator of this channel is governance */}
             <div> NFT Address :
                 <Input onChange={(e) => { setNFTAddress(e.target.value) }}></Input>
             </div>
