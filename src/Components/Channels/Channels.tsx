@@ -6,8 +6,9 @@ import {
   Text,
   Button,
   Spacer,
+  useColorMode,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 
 import { CloseIcon } from "@chakra-ui/icons";
 
@@ -44,6 +45,9 @@ const mockChannels = [
 
 const Channels: React.FC = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const { colorMode } = useColorMode();
+  const tileBackground = useMemo(() => colorMode === 'dark' ? "blue.800" : "blue.50", [colorMode]);
+  const tileBorderColor = useMemo(() => colorMode === 'dark' ? "blue.700" : "blue.100", [colorMode]);
   return (
     <Box>
       <Heading
@@ -65,9 +69,9 @@ const Channels: React.FC = () => {
             cursor="pointer"
             alignItems="center"
             onClick={() => setSelectedIndex(index)}
-            borderColor={index === selectedIndex ? "blue.100" : "transparent"}
+            borderColor={index === selectedIndex ? tileBorderColor : "transparent"}
             borderWidth={1}
-            bgColor={index === selectedIndex ? "blue.50" : "transparent"}
+            bgColor={index === selectedIndex ? tileBackground : "transparent"}
           >
             <Avatar
               cursor="pointer"
