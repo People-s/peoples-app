@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "0xsequence": "^0.36.7",
     "@0xsequence/web3modal": "^2.0.0",
     "@chakra-ui/icons": "^1.1.7",
     "@chakra-ui/react": "^1.8.6",
@@ -17,8 +18,8 @@
     "@types/react": "^16.14.24",
     "@types/react-dom": "^16.9.14",
     "@usedapp/core": "^0.12.1",
-    "0xsequence": "^0.36.7",
     "framer-motion": "^4.1.17",
+    "moralis": "^1.5.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^3.11.0",
@@ -37,6 +38,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "lint": "eslint --ignore-path .gitignore .",
   "browserslist": {
     "production": [
       ">0.2%",

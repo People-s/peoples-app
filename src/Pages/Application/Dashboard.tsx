@@ -28,7 +28,7 @@ const Dashboard: FC = () => {
         borderRadius={4}
         boxShadow="lg"
       >
-        <CreateNetworks />
+        {/*<CreateNetworks /> */}
       </Box>
       <Box
         bgColor="gray.50"
