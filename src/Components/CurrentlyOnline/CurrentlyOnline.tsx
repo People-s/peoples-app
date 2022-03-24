@@ -1,5 +1,5 @@
-import { Heading, Box, Flex, Avatar, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { Heading, Box, Flex, Avatar, Text, useColorMode } from "@chakra-ui/react";
+import React, { useMemo, useState } from "react";
 
 const mockCurrentlyOnline = [
   {
@@ -41,6 +41,9 @@ const mockCurrentlyOnline = [
 
 const CurrentlyOnline: React.FC = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const { colorMode } = useColorMode();
+  const tileBackground = useMemo(() => colorMode === 'dark' ? "blue.800" : "blue.50", [colorMode]);
+  const tileBorderColor = useMemo(() => colorMode === 'dark' ? "blue.700" : "blue.100", [colorMode]);
   return (
     <Box>
       <Heading
@@ -63,8 +66,8 @@ const CurrentlyOnline: React.FC = () => {
             alignItems="center"
             onClick={() => setSelectedIndex(index)}
             borderWidth={1}
-            borderColor={index === selectedIndex ? "blue.100" : "transparent"}
-            bgColor={index === selectedIndex ? "blue.50" : "transparent"}
+            borderColor={index === selectedIndex ? tileBorderColor : "transparent"}
+            bgColor={index === selectedIndex ? tileBackground : "transparent"}
           >
             <Avatar
               cursor="pointer"
