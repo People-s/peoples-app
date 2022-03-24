@@ -19,11 +19,9 @@ import { SettingsIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 import { Logo } from "../../Logo";
 import ConnectButton from "../ConnectButton/ConnectButton";
+import ThemeColorButton from "../ThemeColorButton/ThemeColorButton";
 
 const Header: React.FC = () => {
-  const [isChecked, setIsChecked] = useState(false);
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const userName = "Vitalik Testlord";
 
@@ -41,12 +39,7 @@ const Header: React.FC = () => {
       <Spacer />
 
       <Flex flexDir="row" alignItems="center" mr={6}>
-        <Text whiteSpace="nowrap">Dark mode</Text>
-        <Switch
-          ml={2}
-          isChecked={isChecked}
-          onChange={() => setIsChecked(!isChecked)}
-        />
+        <ThemeColorButton />
       </Flex>
       <Popover>
         <PopoverTrigger>

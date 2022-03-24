@@ -2,6 +2,7 @@ import { useEthers, Web3Ethers } from "@usedapp/core";
 import React, { createContext, FC, useEffect } from "react";
 import Web3Modal, { IProviderOptions } from '@0xsequence/web3modal'
 import { sequence } from '0xsequence'
+import { useColorMode } from "@chakra-ui/react";
 
 export interface Web3ModalContextValue extends Pick<Web3Ethers, 'account' | 'error' | 'active'> {
     web3Modal: Web3Modal;
@@ -43,6 +44,7 @@ export const Web3ModalContext = createContext<Web3ModalContextValue>({ web3Modal
 
 const Web3ModalProvider: FC = ({ children }) => {
     const { activate, deactivate, account, error, active } = useEthers();
+    const { colorMode } = useColorMode();
 
     useEffect(() => {
         const initCached = async () => {
@@ -53,6 +55,13 @@ const Web3ModalProvider: FC = ({ children }) => {
         }
         initCached();
     }, [web3Modal, active]);
+
+    useEffect(() => {
+        const changeColors = async () => {
+            await web3Modal.updateTheme(colorMode);
+        };
+        changeColors();
+    }, [web3Modal, colorMode]);
 
     const activateProvider = async (callback?: Function) => {
         try {

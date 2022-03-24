@@ -1,4 +1,4 @@
-import { ColorModeScript } from "@chakra-ui/react"
+import { ChakraProvider, ColorModeScript, theme } from "@chakra-ui/react"
 import * as React from "react"
 import ReactDOM from "react-dom"
 import { BrowserRouter } from "react-router-dom";
@@ -25,9 +25,11 @@ ReactDOM.render(
     <BrowserRouter>
       <MoralisProvider serverUrl="https://u8qcgk2dukyn.usemoralis.com:2053/server" appId="l19ZlcLJ32Ya1NBeYGuAPoHUohs5UnMA5roDL9eS">
         <DAppProvider config={dappProviderConfig}>
-        <Web3ModalProvider>
-          <App />
-        </Web3ModalProvider>
+          <ChakraProvider theme={theme}>
+            <Web3ModalProvider>
+              <App />
+            </Web3ModalProvider>
+          </ChakraProvider>
         </DAppProvider>
       </MoralisProvider>
     </BrowserRouter>
