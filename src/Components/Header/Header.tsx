@@ -30,7 +30,7 @@ const Header: React.FC = () => {
       <Link to="/">
         <Flex dir="row" alignItems="center">
           <Logo h={10} mr={1} />
-          <Text fontWeight="bold">epople's</Text>
+          <Text fontWeight="bold">eople's</Text>
         </Flex>
       </Link>
       <Spacer />
