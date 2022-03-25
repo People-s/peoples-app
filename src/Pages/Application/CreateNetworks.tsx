@@ -15,6 +15,7 @@ import { CreateProfileDataStruct, PostDataStruct } from '../../typechain-types/L
 import { useState } from 'react';
 
 import { useMoralis, } from "react-moralis";
+
 import { PeoplesChannel__factory } from '../../typechain-types/factories/PeoplesChannel__factory';
 import { abi } from '0xsequence/dist/declarations/src/sequence';
 
