@@ -12,11 +12,10 @@ function Ceramic() {
 
     const threeID = new ThreeIdConnect()
 
-    const ceramic = new CeramicClient("https://ceramic-dev.3boxlabs.com")
 
     async function authenticateWithEthereum(ethereumProvider: any) {
 
-        const ceramic = new CeramicClient("https://ceramic-dev.3boxlabs.com")
+        const ceramic = new CeramicClient()
         // Request accounts from the Ethereum provider
         const accounts = await ethereumProvider.request({
             method: 'eth_requestAccounts',
@@ -27,27 +26,6 @@ function Ceramic() {
         // generate the authentication secret
         await threeID.connect(authProvider)
 
-        const config = {
-            ceramic,
-            chains: {
-                'eip155:1': {
-                    blocks: 'https://api.thegraph.com/subgraphs/name/yyong1010/ethereumblocks',
-                    skew: 15000,
-                    assets: {
-                        erc721: 'https://api.thegraph.com/subgraphs/name/sunguru98/mainnet-erc721-subgraph',
-                        erc1155: 'https://api.thegraph.com/subgraphs/name/sunguru98/mainnet-erc1155-subgraph',
-                    },
-                },
-                'eip155:4': {
-                    blocks: 'https://api.thegraph.com/subgraphs/name/mul53/rinkeby-blocks',
-                    skew: 15000,
-                    assets: {
-                        erc721: 'https://api.thegraph.com/subgraphs/name/sunguru98/erc721-rinkeby-subgraph',
-                        erc1155: 'https://api.thegraph.com/subgraphs/name/sunguru98/erc1155-rinkeby-subgraph',
-                    },
-                },
-            },
-        }
 
 
         const did = new DID({
@@ -71,21 +49,21 @@ function Ceramic() {
 
         console.log(did.id);
 
-        const didNFT2 =
-            "did:nft:eip155:4_erc721:0xe2a6a2da2408e1c944c045162852ef2056e235ab_1";
-        const tile = await TileDocument.create(ceramic, { foo: "blah" }, { controllers: [didNFT2] })
+        // const didNFT2 =
+        //     "did:nft:eip155:4_erc721:0xe2a6a2da2408e1c944c045162852ef2056e235ab_1";
+        // const tile = await TileDocument.create(ceramic, { foo: "blah" }, { controllers: [didNFT2] })
 
-        console.log(tile.id);
+        // console.log(tile.id);
     }
 
 
-    async function createTile() {
+    // async function createTile() {
 
-        const didNFT2 =
-            "did:nft:eip155:4_erc721:0xe2a6a2da2408e1c944c045162852ef2056e235ab_1";
-        const tile = await TileDocument.create(ceramic, { foo: "blah" }, { controllers: [didNFT2] })
+    //     const didNFT2 =
+    //         "did:nft:eip155:4_erc721:0xe2a6a2da2408e1c944c045162852ef2056e235ab_1";
+    //     const tile = await TileDocument.create(ceramic, { foo: "blah" }, { controllers: [didNFT2] })
 
-    }
+    // }
 
     // When using extensions such as MetaMask, an Ethereum provider may be injected as `window.ethereum`
     async function tryAuthenticate() {
@@ -95,38 +73,38 @@ function Ceramic() {
         await authenticateWithEthereum(window.ethereum)
     }
 
-    async function createNFTDID() {
-        const config = {
-            ceramic,
-            chains: {
-                'eip155:1': {
-                    blocks: 'https://api.thegraph.com/subgraphs/name/yyong1010/ethereumblocks',
-                    skew: 15000,
-                    assets: {
-                        erc721: 'https://api.thegraph.com/subgraphs/name/sunguru98/mainnet-erc721-subgraph',
-                        erc1155: 'https://api.thegraph.com/subgraphs/name/sunguru98/mainnet-erc1155-subgraph',
-                    },
-                },
-                'eip155:4': {
-                    blocks: 'https://api.thegraph.com/subgraphs/name/mul53/rinkeby-blocks',
-                    skew: 15000,
-                    assets: {
-                        erc721: 'https://api.thegraph.com/subgraphs/name/sunguru98/erc721-rinkeby-subgraph',
-                        erc1155: 'https://api.thegraph.com/subgraphs/name/sunguru98/erc1155-rinkeby-subgraph',
-                    },
-                },
-            },
-        }
+    // async function createNFTDID() {
+    //     const config = {
+    //         ceramic,
+    //         chains: {
+    //             'eip155:1': {
+    //                 blocks: 'https://api.thegraph.com/subgraphs/name/yyong1010/ethereumblocks',
+    //                 skew: 15000,
+    //                 assets: {
+    //                     erc721: 'https://api.thegraph.com/subgraphs/name/sunguru98/mainnet-erc721-subgraph',
+    //                     erc1155: 'https://api.thegraph.com/subgraphs/name/sunguru98/mainnet-erc1155-subgraph',
+    //                 },
+    //             },
+    //             'eip155:4': {
+    //                 blocks: 'https://api.thegraph.com/subgraphs/name/mul53/rinkeby-blocks',
+    //                 skew: 15000,
+    //                 assets: {
+    //                     erc721: 'https://api.thegraph.com/subgraphs/name/sunguru98/erc721-rinkeby-subgraph',
+    //                     erc1155: 'https://api.thegraph.com/subgraphs/name/sunguru98/erc1155-rinkeby-subgraph',
+    //                 },
+    //             },
+    //         },
+    //     }
 
 
 
 
-    }
+    // }
 
     return (
         <>
             <Button onClick={tryAuthenticate}>  START CERAMIC </Button>
-            <Button onClick={createTile}>  CREATE TILE </Button>
+            {/* <Button onClick={createTile}>  CREATE TILE </Button> */}
         </>
     )
 
