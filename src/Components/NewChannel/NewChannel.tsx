@@ -87,7 +87,7 @@ const NewChannel: React.FC<ChannelListProps> = ({
             colorScheme="teal"
             size="sm"
             leftIcon={<Icon as={MdCreate} mt="auto" />}
-            onClick={() => changeView("List")}
+            onClick={() => changeView("Join")}
           >
             List
           </Button>{" "}

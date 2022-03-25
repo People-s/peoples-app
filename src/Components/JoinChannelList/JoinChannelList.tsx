@@ -78,25 +78,6 @@ const JoinChannelList: React.FC<ChannelListProps> = ({
         <Text fontSize="xl" fontWeight="bold">
           Join a Channel
         </Text>
-        <Box>
-          <Button
-            m="2"
-            colorScheme="teal"
-            size="sm"
-            leftIcon={<Icon as={MdCreate} mt="auto" />}
-            onClick={() => changeView("Create")}
-          >
-            Create
-          </Button>{" "}
-          <Button
-            colorScheme="teal"
-            size="sm"
-            leftIcon={<Icon as={MdThumbUp} mt="auto" />}
-            onClick={() => changeView("Vote")}
-          >
-            Vote
-          </Button>
-        </Box>
       </HStack>
 
       <ChannelList typeOfTheList={typeOfTheList} />

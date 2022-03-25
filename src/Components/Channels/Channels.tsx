@@ -7,10 +7,14 @@ import {
   Button,
   Spacer,
   useColorMode,
+  Icon,
+  HStack,
 } from "@chakra-ui/react";
 import React, { useMemo, useState } from "react";
 
 import { CloseIcon } from "@chakra-ui/icons";
+import { ChannelListProps } from "../JoinChannelList/JoinChannelList";
+import { MdCreate, MdThumbUp, MdViewList } from "react-icons/md";
 
 const mockChannels = [
   {
@@ -43,11 +47,24 @@ const mockChannels = [
   },
 ];
 
-const Channels: React.FC = () => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+export interface ChannelsProps {
+  selectedIndex: number | null;
+  setSelectedIndex?: any;
+}
+
+const Channels: React.FC<ChannelsProps> = ({
+  selectedIndex,
+  setSelectedIndex,
+}) => {
   const { colorMode } = useColorMode();
-  const tileBackground = useMemo(() => colorMode === 'dark' ? "blue.800" : "blue.50", [colorMode]);
-  const tileBorderColor = useMemo(() => colorMode === 'dark' ? "blue.700" : "blue.100", [colorMode]);
+  const tileBackground = useMemo(
+    () => (colorMode === "dark" ? "blue.800" : "blue.50"),
+    [colorMode]
+  );
+  const tileBorderColor = useMemo(
+    () => (colorMode === "dark" ? "blue.700" : "blue.100"),
+    [colorMode]
+  );
   return (
     <Box>
       <Heading
@@ -60,6 +77,31 @@ const Channels: React.FC = () => {
       >
         Channels
       </Heading>
+      <HStack justify="space-between">
+        <Button
+          m="2"
+          colorScheme="blue"
+          size="sm"
+          leftIcon={<Icon as={MdViewList} mt="auto" />}
+        >
+          List
+        </Button>{" "}
+        <Button
+          m="2"
+          colorScheme="blue"
+          size="sm"
+          leftIcon={<Icon as={MdCreate} mt="auto" />}
+        >
+          Create
+        </Button>{" "}
+        <Button
+          colorScheme="blue"
+          size="sm"
+          leftIcon={<Icon as={MdThumbUp} mt="auto" />}
+        >
+          Vote
+        </Button>
+      </HStack>
       {mockChannels.map(({ name }, index) => {
         return (
           <Flex
@@ -69,7 +111,9 @@ const Channels: React.FC = () => {
             cursor="pointer"
             alignItems="center"
             onClick={() => setSelectedIndex(index)}
-            borderColor={index === selectedIndex ? tileBorderColor : "transparent"}
+            borderColor={
+              index === selectedIndex ? tileBorderColor : "transparent"
+            }
             borderWidth={1}
             bgColor={index === selectedIndex ? tileBackground : "transparent"}
           >

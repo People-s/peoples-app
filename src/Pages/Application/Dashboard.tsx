@@ -9,6 +9,7 @@ import NewChannel from "../../Components/NewChannel/NewChannel";
 
 const Dashboard: FC = () => {
   const [view, setView] = useState<string | undefined>("Join");
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
   const { colorMode } = useColorMode();
   const boxBackground = useMemo(
@@ -27,7 +28,10 @@ const Dashboard: FC = () => {
         borderRadius={4}
         boxShadow="lg"
       >
-        <Channels />
+        <Channels
+          selectedIndex={selectedIndex}
+          setSelectedIndex={(index: any) => setSelectedIndex(index)}
+        />
       </Box>
       <Box
         bgColor={boxBackground}
@@ -38,6 +42,7 @@ const Dashboard: FC = () => {
         boxShadow="lg"
       >
         {/*<CreateNetworks /> */}
+
         {view === "Create" ? (
           <NewChannel
             typeOfTheList={view}
