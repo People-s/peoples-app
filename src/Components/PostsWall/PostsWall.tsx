@@ -61,18 +61,7 @@ const mockChannels = [
     votes: 2,
   },
 ];
-const PostWall: React.FC<ChannelListProps> = ({ typeOfTheList }) => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const { colorMode } = useColorMode();
-  const tileBackground = useMemo(
-    () => (colorMode === "dark" ? "gray.200" : "gray.100"),
-    [colorMode]
-  );
-  const tileBorderColor = useMemo(
-    () => (colorMode === "dark" ? "gray.400" : "gray.300"),
-    [colorMode]
-  );
-
+const PostWall: React.FC = () => {
   return (
     <Box>
       {mockChannels.map(
@@ -85,71 +74,9 @@ const PostWall: React.FC<ChannelListProps> = ({ typeOfTheList }) => {
               cursor="pointer"
               borderRadius="lg"
               alignItems="center"
-              onClick={() => setSelectedIndex(index)}
               borderWidth={1}
-              borderColor={
-                index === selectedIndex ? tileBorderColor : "transparent"
-              }
-              bgColor={index === selectedIndex ? tileBackground : "transparent"}
             >
-              <Avatar
-                cursor="pointer"
-                size="sm"
-                name={title}
-                mr={6}
-                bgColor="gray"
-              />
-              <Box overflow="hidden">
-                <Text textColor="teal">{title}</Text>
-                <Text
-                  fontSize="xs"
-                  overflow="hidden"
-                  textOverflow="ellipsis"
-                  textColor="gray.800"
-                >
-                  {description}
-                </Text>
-              </Box>
-              <Box overflow="hidden" ml="10">
-                <Icon as={MdCopyright} mt="auto" ml="2.5" />
-                <Text
-                  fontSize="xs"
-                  overflow="hidden"
-                  textOverflow="ellipsis"
-                  textColor="teal"
-                >
-                  {coin}
-                </Text>
-              </Box>
-              {typeOfTheList === "Join" ? (
-                <Box overflow="hidden" ml="10">
-                  <Icon as={MdSupervisorAccount} mt="auto" ml="1" />
-                  <Text
-                    fontSize="xs"
-                    overflow="hidden"
-                    textOverflow="ellipsis"
-                    textColor="teal"
-                  >
-                    {members}
-                  </Text>
-                </Box>
-              ) : (
-                <Box overflow="hidden" ml="10">
-                  <Icon as={MdThumbUp} mt="auto" ml="1" />
-                  <Text
-                    fontSize="xs"
-                    overflow="hidden"
-                    textOverflow="ellipsis"
-                    textColor="teal"
-                  >
-                    {votes}/10
-                  </Text>
-                </Box>
-              )}
-
-              <Button colorScheme="teal" size="xs" ml="auto">
-                {typeOfTheList}
-              </Button>
+              Posts
             </Flex>
           );
         }

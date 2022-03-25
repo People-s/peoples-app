@@ -6,6 +6,7 @@ import JoinChannelList from "../../Components/JoinChannelList/JoinChannelList";
 import Channels from "../../Components/Channels/Channels";
 import CurrentlyOnline from "../../Components/CurrentlyOnline/CurrentlyOnline";
 import NewChannel from "../../Components/NewChannel/NewChannel";
+import PostWall from "../../Components/PostsWall/PostsWall";
 
 const Dashboard: FC = () => {
   const [view, setView] = useState<string | undefined>("Join");
@@ -31,6 +32,7 @@ const Dashboard: FC = () => {
         <Channels
           selectedIndex={selectedIndex}
           setSelectedIndex={(index: any) => setSelectedIndex(index)}
+          changeView={(a: string) => setView(a)}
         />
       </Box>
       <Box
@@ -43,7 +45,9 @@ const Dashboard: FC = () => {
       >
         {/*<CreateNetworks /> */}
 
-        {view === "Create" ? (
+        {selectedIndex ? (
+          <PostWall />
+        ) : view === "Create" ? (
           <NewChannel
             typeOfTheList={view}
             changeView={(a: string) => setView(a)}

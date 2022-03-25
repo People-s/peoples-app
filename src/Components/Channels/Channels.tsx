@@ -50,11 +50,13 @@ const mockChannels = [
 export interface ChannelsProps {
   selectedIndex: number | null;
   setSelectedIndex?: any;
+  changeView?: any;
 }
 
 const Channels: React.FC<ChannelsProps> = ({
   selectedIndex,
   setSelectedIndex,
+  changeView,
 }) => {
   const { colorMode } = useColorMode();
   const tileBackground = useMemo(
@@ -83,6 +85,10 @@ const Channels: React.FC<ChannelsProps> = ({
           colorScheme="blue"
           size="sm"
           leftIcon={<Icon as={MdViewList} mt="auto" />}
+          onClick={() => {
+            changeView("Join");
+            setSelectedIndex(null);
+          }}
         >
           List
         </Button>{" "}
@@ -91,6 +97,10 @@ const Channels: React.FC<ChannelsProps> = ({
           colorScheme="blue"
           size="sm"
           leftIcon={<Icon as={MdCreate} mt="auto" />}
+          onClick={() => {
+            changeView("Create");
+            setSelectedIndex(null);
+          }}
         >
           Create
         </Button>{" "}
@@ -98,6 +108,10 @@ const Channels: React.FC<ChannelsProps> = ({
           colorScheme="blue"
           size="sm"
           leftIcon={<Icon as={MdThumbUp} mt="auto" />}
+          onClick={() => {
+            changeView("Vote");
+            setSelectedIndex(null);
+          }}
         >
           Vote
         </Button>
