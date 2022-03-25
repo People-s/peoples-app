@@ -19,6 +19,7 @@
     "@usedapp/core": "^0.12.1",
     "0xsequence": "^0.36.7",
     "framer-motion": "^4.1.17",
+    "lit-js-sdk": "^1.1.152",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^3.11.0",
