@@ -5,6 +5,7 @@ import JoinChannelList from "../../Components/JoinChannelList/JoinChannelList";
 
 import Channels from "../../Components/Channels/Channels";
 import CurrentlyOnline from "../../Components/CurrentlyOnline/CurrentlyOnline";
+import NewChannel from "../../Components/NewChannel/NewChannel";
 
 const Dashboard: FC = () => {
   const [view, setView] = useState<string | undefined>("Join");
@@ -37,10 +38,17 @@ const Dashboard: FC = () => {
         boxShadow="lg"
       >
         {/*<CreateNetworks /> */}
-        <JoinChannelList
-          typeOfTheList={view}
-          changeView={(a: string) => setView(a)}
-        />
+        {view === "Create" ? (
+          <NewChannel
+            typeOfTheList={view}
+            changeView={(a: string) => setView(a)}
+          />
+        ) : (
+          <JoinChannelList
+            typeOfTheList={view}
+            changeView={(a: string) => setView(a)}
+          />
+        )}
       </Box>
       <Box
         bgColor={boxBackground}
