@@ -10,6 +10,7 @@ import {
 import React, { useMemo, useState } from "react";
 import { MdCopyright, MdSupervisorAccount, MdThumbUp } from "react-icons/md";
 import { ChannelListProps } from "../JoinChannelList/JoinChannelList";
+import Post from "../Post/Post";
 
 const mockChannels = [
   {
@@ -63,22 +64,10 @@ const mockChannels = [
 ];
 const PostWall: React.FC = () => {
   return (
-    <Box>
+    <Box pl={-1} pr={-1}>
       {mockChannels.map(
         ({ title, description, coin, members, votes }, index) => {
-          return (
-            <Flex
-              dir="row"
-              p="2"
-              m="2"
-              cursor="pointer"
-              borderRadius="lg"
-              alignItems="center"
-              borderWidth={1}
-            >
-              Posts
-            </Flex>
-          );
+         return  <Post key={index} title={title} description={description} votes={votes} coin={coin} />
         }
       )}
     </Box>

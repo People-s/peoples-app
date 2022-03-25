@@ -39,7 +39,9 @@ const Dashboard: FC = () => {
         bgColor={boxBackground}
         flex={1}
         mx={6}
-        p={6}
+        pt={6}
+        pl={4}
+        pr={4}
         borderRadius={4}
         boxShadow="lg"
       >
