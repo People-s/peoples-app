@@ -88,7 +88,7 @@ export function initBackground() {
     // particlesMesh.rotation.y = scrollY * (elapsedTime * 0.00008);
     // particlesMesh.rotation.x = scrollY * (elapsedTime * 0.00008);
     // particlesMesh.rotation.x = scrollY * (elapsedTime * 0.00005);
-    particlesMesh.rotation.x = -scrollY * 0.0004;
+    particlesMesh.rotation.x = -scrollY * 0.0002;
 
     // Render
     renderer.clear();
