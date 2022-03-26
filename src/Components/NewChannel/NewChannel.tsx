@@ -81,25 +81,6 @@ const NewChannel: React.FC<ChannelListProps> = ({
         <Text fontSize="xl" fontWeight="bold">
           Create a new channel proposal
         </Text>
-        <Box>
-          <Button
-            m="2"
-            colorScheme="teal"
-            size="sm"
-            leftIcon={<Icon as={MdCreate} mt="auto" />}
-            onClick={() => changeView("List")}
-          >
-            List
-          </Button>{" "}
-          <Button
-            colorScheme="teal"
-            size="sm"
-            leftIcon={<Icon as={MdThumbUp} mt="auto" />}
-            onClick={() => changeView("Vote")}
-          >
-            Vote
-          </Button>
-        </Box>
       </HStack>
       <Text fontSize="sm" m="2" textColor="gray">
         Remember that you need People’s NFT to create a channel!
