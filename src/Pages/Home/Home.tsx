@@ -30,7 +30,9 @@ const Home: FC = () => {
             ) : (
               <Logo h={10} mr={1} />
             )}
-            <Text fontWeight="bold">eople's</Text>
+            <Text fontWeight="bold" align="center">
+              eople's
+            </Text>
           </Flex>
         </Link>
       </Box>
@@ -44,15 +46,14 @@ const Home: FC = () => {
         bgPosition="center"
         bgAttachment="fixed"
         pos="relative"
-        templateColumns={{ base: "auto", md: "1fr 1fr" }}
       >
         <Box>
           <Text mb={4} fontSize="2xl">
-            People's is a social media platform powered by Lens Protocol and
-            Polygon.
+            <Text fontSize="xxx-large">People's</Text> a social media platform
+            powered by Lens Protocol and Polygon.
           </Text>
           <Flex>
-            <Box mr={4}>
+            <Box mr={4} mt={4}>
               <ConnectButton text="Join" size="md" />
             </Box>
             {account && (
@@ -85,6 +86,102 @@ const Home: FC = () => {
           with new kind of communication style. It is easy just click connect
           button and connect to the future of web
         </Text>
+      </Grid>
+      <Grid
+        p={4}
+        h="100%"
+        minH="100vh"
+        placeContent="center"
+        alignItems="center"
+        flexDirection="column"
+        bgPosition="center"
+        bgAttachment="fixed"
+        pos="relative"
+      >
+        <Box width="80%">
+          <Text fontSize="xxx-large" align="center">
+            Web 1.0
+          </Text>
+          <Text mb={4} mt={4} fontSize="2xl" align="center">
+            Mostly Read-Only
+            <br /> Company Focus
+            <br /> Owning Content
+            <br /> Dedicated Infrastructure
+          </Text>
+        </Box>
+      </Grid>
+      <Grid
+        p={4}
+        h="100%"
+        minH="100vh"
+        placeContent="center"
+        alignItems="center"
+        flexDirection="column"
+        bgPosition="center"
+        bgAttachment="fixed"
+        pos="relative"
+      >
+        <Box width="80%">
+          <Text fontSize="xxx-large" align="center">
+            Web 2.0
+          </Text>
+          <Text mb={4} mt={4} fontSize="2xl" align="center">
+            Wildly Read-Write
+            <br /> Community Focus
+            <br /> Sharing Content
+            <br /> Centralized Infrastructure
+          </Text>
+        </Box>
+      </Grid>
+      <Grid
+        p={4}
+        h="100%"
+        minH="100vh"
+        placeContent="center"
+        alignItems="center"
+        flexDirection="column"
+        bgPosition="center"
+        bgAttachment="fixed"
+        pos="relative"
+      >
+        <Box width="80%">
+          <Text fontSize="xxx-large" align="center">
+            Web 3.0
+          </Text>
+          <Text mb={4} mt={4} fontSize="2xl" align="center">
+            Payable and Personal
+            <br /> Individual Focus
+            <br /> Consolidating Content
+            <br /> Decentralized Infrastructure
+          </Text>
+        </Box>
+      </Grid>
+      <Grid
+        p={4}
+        h="100%"
+        minH="100vh"
+        placeContent="center"
+        alignItems="center"
+        flexDirection="column"
+        bgPosition="center"
+        bgAttachment="fixed"
+        pos="relative"
+      >
+        <Box width="80%">
+          <Text fontSize="xxx-large" align="center">
+            Join us now!
+          </Text>
+          <Flex>
+            <Box mt={4} ml="auto" mr="auto">
+              <ConnectButton text="Join" size="md" />
+            </Box>
+            {account && (
+              <Link to="/dashboard">
+                <Button>Enter</Button>
+              </Link>
+            )}
+          </Flex>
+        </Box>
       </Grid>
     </>
   );
