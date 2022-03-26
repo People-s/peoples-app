@@ -38,35 +38,36 @@ const Home: FC = () => {
         p={4}
         h="100%"
         minH="100vh"
-        display="flex"
         placeContent="center"
         alignItems="center"
         flexDirection="column"
         bgPosition="center"
         bgAttachment="fixed"
         pos="relative"
+        templateColumns={{ base: "auto", md: "1fr 1fr" }}
       >
-        <Text mb={4}>
-          People's is a social media platform powered by Lens Protocol and
-          Polygon.
-        </Text>
-        <Flex>
-          <Box mr={4}>
-            <ConnectButton text="Join" size="md" />
-          </Box>
-          {account && (
-            <Link to="/dashboard">
-              <Button>Enter</Button>
-            </Link>
-          )}
-        </Flex>
+        <Box>
+          <Text mb={4} fontSize="2xl">
+            People's is a social media platform powered by Lens Protocol and
+            Polygon.
+          </Text>
+          <Flex>
+            <Box mr={4}>
+              <ConnectButton text="Join" size="md" />
+            </Box>
+            {account && (
+              <Link to="/dashboard">
+                <Button>Enter</Button>
+              </Link>
+            )}
+          </Flex>
+        </Box>
       </Grid>
       {/* page two */}
       <Grid
         p={4}
         h="100%"
         minH="100vh"
-        display="flex"
         placeContent="center"
         alignItems="center"
         flexDirection="column"

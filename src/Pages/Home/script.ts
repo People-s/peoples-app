@@ -112,7 +112,7 @@ export function init() {
   window.addEventListener("resize", onWindowResize, false);
 
   const clock = new THREE.Clock();
-  // renderer.render(scene, camera);
+  renderer.render(scene, camera);
 
   function animate() {
     const elapsedTime = clock.getElapsedTime();
@@ -128,7 +128,6 @@ export function init() {
     // particlesMesh.rotation.x = scrollY * (elapsedTime * 0.00008);
     // particlesMesh.rotation.x = scrollY * (elapsedTime * 0.00005);
     particlesMesh.rotation.x = -scrollY * (elapsedTime * 0.00001);
-    console.log("animate");
 
     // Render
     renderer.clear();
