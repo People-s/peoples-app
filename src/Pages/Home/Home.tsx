@@ -95,15 +95,16 @@ const Home: FC = () => {
       >
         <Box ml={12} textAlign="right">
           <Text fontSize="3xl">Connect</Text>
-          <Text>people with similar causes & ideas</Text>
+          <Text>with people with similar interests & ideas</Text>
           <Text mb={5}>
-            be part of the next-gen Social Media by participating in creating
-            the future.
+            and become a part of the next-gen Social Media by participating in
+            creating the future.
           </Text>
 
           <Text fontSize="3xl">Our mission</Text>
           <Text>
-            attract web 2.0 to web 3.0 with new kind of communication style
+            is to attract people of web 2.0 to web 3.0 with the limitless
+            ownership possibilities and flexibility
           </Text>
           <Text>
             harness the power of blockchain by forming token gated communities
@@ -111,7 +112,7 @@ const Home: FC = () => {
           <div id="content">
             <ul className="timeline">
               <li className="event" data-date="1990">
-                <h3>Web 1</h3>
+                <h3>Web 1.0</h3>
                 <UnorderedList>
                   <ListItem>Mostly Read-Only</ListItem>
                   <ListItem>Company Focus</ListItem>
@@ -120,7 +121,7 @@ const Home: FC = () => {
                 </UnorderedList>
               </li>
               <li className="event" data-date="2005">
-                <h3>Web 2</h3>
+                <h3>Web 2.0</h3>
                 <UnorderedList>
                   <ListItem>Wildly Read-Write</ListItem>
                   <ListItem>Community Focus</ListItem>
@@ -129,7 +130,7 @@ const Home: FC = () => {
                 </UnorderedList>
               </li>
               <li className="event" data-date="2020">
-                <h3>Web 3</h3>
+                <h3>Web 3.0</h3>
                 <UnorderedList>
                   <ListItem> Payable and Personal</ListItem>
                   <ListItem> Individual Focus</ListItem>
