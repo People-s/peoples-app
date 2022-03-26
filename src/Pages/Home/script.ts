@@ -44,11 +44,14 @@ export function init() {
 
   // Materials
 
-  const material = new THREE.MeshBasicMaterial();
-  material.color = new THREE.Color(0xff0000);
+  const material = new THREE.PointsMaterial({
+    // transparent: true,
+    size: 0.005,
+  });
+  material.color = new THREE.Color(0xfffffff);
 
   // Mesh
-  const sphere = new THREE.Mesh(geometry, material);
+  const sphere = new THREE.Points(geometry, material);
   scene.add(sphere);
 
   // Lights
