@@ -3,14 +3,16 @@ import { Box, Button, Text, Grid, Flex, useColorMode } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import ConnectButton from "../../Components/ConnectButton/ConnectButton";
 
-import { init } from "./script";
+import { initBackground } from "./background";
+import { initLogo } from "./logo";
 import { Logo } from "../../Logo";
 import { LogoWhite } from "../../LogoWhite";
 import { Web3ModalContext } from "../../Components/Web3Modal/Web3Modal";
 
 const Home: FC = () => {
   window.onload = function () {
-    init();
+    initBackground();
+    initLogo();
   };
 
   const { colorMode } = useColorMode();
@@ -20,7 +22,15 @@ const Home: FC = () => {
 
   return (
     <>
-      <Box id="canvas" position="fixed" height="100%" width="100%" />
+      <Box id="background" position="fixed" height="100%" width="100%" />
+      <Box
+        id="logo"
+        position="fixed"
+        height="100%"
+        width="50%"
+        right={0}
+        top="25%"
+      />
       {/* page one */}
       <Box position="fixed" ml={6} mt={3}>
         <Link to="/">
@@ -47,11 +57,11 @@ const Home: FC = () => {
         templateColumns={{ base: "auto", md: "1fr 1fr" }}
       >
         <Box>
-          <Text mb={4} fontSize="2xl">
+          <Text mb={4} fontSize="2xl" textAlign="right">
             People's is a social media platform powered by Lens Protocol and
             Polygon.
           </Text>
-          <Flex>
+          <Flex justifyContent="flex-end">
             <Box mr={4}>
               <ConnectButton text="Join" size="md" />
             </Box>
