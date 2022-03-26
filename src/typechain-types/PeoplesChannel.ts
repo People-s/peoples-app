@@ -9,6 +9,7 @@ import {
   CallOverrides,
   ContractTransaction,
   Overrides,
+  PayableOverrides,
   PopulatedTransaction,
   Signer,
   utils,
@@ -69,18 +70,33 @@ export type PostDataStructOutput = [
 
 export interface PeoplesChannelInterface extends utils.Interface {
   functions: {
+    "confirmChannelProposal(uint256)": FunctionFragment;
     "createChannel((address,string,string,address,bytes,string))": FunctionFragment;
+    "createChannelProposal((address,string,string,address,bytes,string))": FunctionFragment;
     "createPost((uint256,string,address,bytes,address,bytes))": FunctionFragment;
     "getHandlesByOwner(address)": FunctionFragment;
+    "getVoteAmount(string)": FunctionFragment;
+    "handleVotes(string,uint256)": FunctionFragment;
     "isAllowed(address)": FunctionFragment;
     "isCreator(address)": FunctionFragment;
     "ownerToHandles(address,uint256)": FunctionFragment;
     "postsByChannel(string,uint256)": FunctionFragment;
     "setFollowModule(uint256,address,bytes)": FunctionFragment;
+    "vote(string)": FunctionFragment;
+    "voteAmount(string)": FunctionFragment;
+    "voteChannel(address,string)": FunctionFragment;
   };
 
   encodeFunctionData(
+    functionFragment: "confirmChannelProposal",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "createChannel",
+    values: [CreateProfileDataStruct]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "createChannelProposal",
     values: [CreateProfileDataStruct]
   ): string;
   encodeFunctionData(
@@ -90,6 +106,14 @@ export interface PeoplesChannelInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "getHandlesByOwner",
     values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getVoteAmount",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "handleVotes",
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "isAllowed", values: [string]): string;
   encodeFunctionData(functionFragment: "isCreator", values: [string]): string;
@@ -105,14 +129,36 @@ export interface PeoplesChannelInterface extends utils.Interface {
     functionFragment: "setFollowModule",
     values: [BigNumberish, string, BytesLike]
   ): string;
+  encodeFunctionData(functionFragment: "vote", values: [string]): string;
+  encodeFunctionData(functionFragment: "voteAmount", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "voteChannel",
+    values: [string, string]
+  ): string;
 
   decodeFunctionResult(
+    functionFragment: "confirmChannelProposal",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "createChannel",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "createChannelProposal",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "createPost", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getHandlesByOwner",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getVoteAmount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "handleVotes",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "isAllowed", data: BytesLike): Result;
@@ -129,15 +175,31 @@ export interface PeoplesChannelInterface extends utils.Interface {
     functionFragment: "setFollowModule",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "vote", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "voteAmount", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "voteChannel",
+    data: BytesLike
+  ): Result;
 
   events: {
+    "ChannelProposals(address,string)": EventFragment;
     "newChannel(address,string)": EventFragment;
     "newChannelPost(address,string,string,address,bytes,address,bytes,uint256)": EventFragment;
   };
 
+  getEvent(nameOrSignatureOrTopic: "ChannelProposals"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "newChannel"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "newChannelPost"): EventFragment;
 }
+
+export type ChannelProposalsEvent = TypedEvent<
+  [string, string],
+  { creator: string; channelName: string }
+>;
+
+export type ChannelProposalsEventFilter =
+  TypedEventFilter<ChannelProposalsEvent>;
 
 export type newChannelEvent = TypedEvent<
   [string, string],
@@ -189,9 +251,19 @@ export interface PeoplesChannel extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    confirmChannelProposal(
+      proposalId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     createChannel(
       vars: CreateProfileDataStruct,
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    createChannelProposal(
+      vars: CreateProfileDataStruct,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     createPost(
@@ -203,6 +275,17 @@ export interface PeoplesChannel extends BaseContract {
       _owner: string,
       overrides?: CallOverrides
     ): Promise<[string[]]>;
+
+    getVoteAmount(
+      handle: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    handleVotes(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
 
     isAllowed(arg0: string, overrides?: CallOverrides): Promise<[boolean]>;
 
@@ -226,11 +309,34 @@ export interface PeoplesChannel extends BaseContract {
       followModuleData: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    vote(
+      handle: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    voteAmount(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    voteChannel(
+      arg0: string,
+      arg1: string,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
   };
+
+  confirmChannelProposal(
+    proposalId: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   createChannel(
     vars: CreateProfileDataStruct,
     overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  createChannelProposal(
+    vars: CreateProfileDataStruct,
+    overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   createPost(
@@ -242,6 +348,14 @@ export interface PeoplesChannel extends BaseContract {
     _owner: string,
     overrides?: CallOverrides
   ): Promise<string[]>;
+
+  getVoteAmount(handle: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+  handleVotes(
+    arg0: string,
+    arg1: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
   isAllowed(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
@@ -266,8 +380,31 @@ export interface PeoplesChannel extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  vote(
+    handle: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  voteAmount(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+  voteChannel(
+    arg0: string,
+    arg1: string,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
   callStatic: {
+    confirmChannelProposal(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     createChannel(
+      vars: CreateProfileDataStruct,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    createChannelProposal(
       vars: CreateProfileDataStruct,
       overrides?: CallOverrides
     ): Promise<void>;
@@ -278,6 +415,17 @@ export interface PeoplesChannel extends BaseContract {
       _owner: string,
       overrides?: CallOverrides
     ): Promise<string[]>;
+
+    getVoteAmount(
+      handle: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    handleVotes(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     isAllowed(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
@@ -301,9 +449,28 @@ export interface PeoplesChannel extends BaseContract {
       followModuleData: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    vote(handle: string, overrides?: CallOverrides): Promise<void>;
+
+    voteAmount(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    voteChannel(
+      arg0: string,
+      arg1: string,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
   };
 
   filters: {
+    "ChannelProposals(address,string)"(
+      creator?: string | null,
+      channelName?: null
+    ): ChannelProposalsEventFilter;
+    ChannelProposals(
+      creator?: string | null,
+      channelName?: null
+    ): ChannelProposalsEventFilter;
+
     "newChannel(address,string)"(
       creator?: string | null,
       channelName?: string | null
@@ -336,9 +503,19 @@ export interface PeoplesChannel extends BaseContract {
   };
 
   estimateGas: {
+    confirmChannelProposal(
+      proposalId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     createChannel(
       vars: CreateProfileDataStruct,
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    createChannelProposal(
+      vars: CreateProfileDataStruct,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     createPost(
@@ -348,6 +525,17 @@ export interface PeoplesChannel extends BaseContract {
 
     getHandlesByOwner(
       _owner: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getVoteAmount(
+      handle: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    handleVotes(
+      arg0: string,
+      arg1: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -373,12 +561,35 @@ export interface PeoplesChannel extends BaseContract {
       followModuleData: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
+
+    vote(
+      handle: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    voteAmount(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    voteChannel(
+      arg0: string,
+      arg1: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
+    confirmChannelProposal(
+      proposalId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
     createChannel(
       vars: CreateProfileDataStruct,
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    createChannelProposal(
+      vars: CreateProfileDataStruct,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     createPost(
@@ -388,6 +599,17 @@ export interface PeoplesChannel extends BaseContract {
 
     getHandlesByOwner(
       _owner: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getVoteAmount(
+      handle: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    handleVotes(
+      arg0: string,
+      arg1: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -418,6 +640,22 @@ export interface PeoplesChannel extends BaseContract {
       followModule: string,
       followModuleData: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    vote(
+      handle: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    voteAmount(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    voteChannel(
+      arg0: string,
+      arg1: string,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };
 }
