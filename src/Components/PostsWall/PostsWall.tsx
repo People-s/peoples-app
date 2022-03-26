@@ -64,10 +64,18 @@ const mockChannels = [
 ];
 const PostWall: React.FC = () => {
   return (
-    <Box pl={-1} pr={-1}>
+    <Box pl={-1} pr={-1} overflow="auto" height="80vh">
       {mockChannels.map(
         ({ title, description, coin, members, votes }, index) => {
-         return  <Post key={index} title={title} description={description} votes={votes} coin={coin} />
+          return (
+            <Post
+              key={index}
+              title={title}
+              description={description}
+              votes={votes}
+              coin={coin}
+            />
+          );
         }
       )}
     </Box>
