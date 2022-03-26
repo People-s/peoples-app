@@ -3,22 +3,24 @@ import * as THREE from "three";
 export function init() {
   var renderer: THREE.WebGLRenderer,
     scene: THREE.Scene,
-    camera: THREE.PerspectiveCamera,
-    circle: THREE.Object3D<THREE.Event>,
-    skelet: THREE.Object3D<THREE.Event>,
-    particle: THREE.Object3D<THREE.Event>;
+    camera: THREE.PerspectiveCamera;
 
-  console.log("init");
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1);
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.autoClear = false;
   renderer.setClearColor(0x000000, 0.0);
   document.getElementById("canvas")?.appendChild(renderer.domElement);
-  console.log(
-    'document.getElementById("canvas")',
-    document.getElementById("canvas")
-  );
+
+  document.addEventListener("scroll", animateParticles);
+
+  let scrollX = 0;
+  let scrollY = 0;
+
+  function animateParticles() {
+    scrollY = window.scrollY;
+    scrollX = window.scrollX;
+  }
 
   scene = new THREE.Scene();
 
@@ -31,28 +33,44 @@ export function init() {
   camera.position.z = 2;
   scene.add(camera);
 
-  circle = new THREE.Object3D();
-  skelet = new THREE.Object3D();
-  particle = new THREE.Object3D();
-
-  scene.add(circle);
-  scene.add(skelet);
-  scene.add(particle);
-
   // Objects
   const geometry = new THREE.TorusGeometry(0.7, 0.2, 16, 100);
 
+  const particleGeometry = new THREE.BufferGeometry();
+  const particlesCnt = 5000;
+
+  const posArray = new Float32Array(particlesCnt * 3);
+
+  for (let i = 0; i < particlesCnt * 3; i++) {
+    // posArray[i] = Math.random();
+    // posArray[i] = Math.random() - 0.5; // center it
+    // posArray[i] = (Math.random() - 0.5) * 5; // center it, spread out
+    posArray[i] = (Math.random() - 0.5) * 10; // center it, spread out
+  }
+
+  particleGeometry.setAttribute(
+    "position",
+    new THREE.BufferAttribute(posArray, 3)
+  );
+
   // Materials
 
-  const material = new THREE.PointsMaterial({
+  const sphereMaterial = new THREE.PointsMaterial({
     // transparent: true,
     size: 0.005,
   });
-  material.color = new THREE.Color(0xfffffff);
+
+  const particlesMaterial = new THREE.PointsMaterial({
+    // transparent: true,
+    size: 0.005,
+  });
+  sphereMaterial.color = new THREE.Color(0xfffffff);
 
   // Mesh
-  const sphere = new THREE.Points(geometry, material);
-  scene.add(sphere);
+  const sphere = new THREE.Points(geometry, sphereMaterial);
+  const particlesMesh = new THREE.Points(particleGeometry, particlesMaterial);
+
+  scene.add(sphere, particlesMesh);
 
   // Lights
 
@@ -63,7 +81,7 @@ export function init() {
   scene.add(pointLight);
 
   // for (var i = 0; i < 1000; i++) {
-  //   var mesh = new THREE.Mesh(geometry, material);
+  //   var mesh = new THREE.Mesh(geometry, sphereMaterial);
   //   mesh.position
   //     .set(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5)
   //     .normalize();
@@ -102,25 +120,20 @@ export function init() {
 
     // Update Orbital Controls
     // controls.update()
+    // particlesMesh.rotation.x += 0.0;
+    // particlesMesh.rotation.y -= 0.004;
+    // particlesMesh.rotation.y = scrollY * (elapsedTime * 0.00008);
+    // particlesMesh.rotation.x = scrollY * (elapsedTime * 0.00008);
+    // particlesMesh.rotation.x = scrollY * (elapsedTime * 0.00005);
+    particlesMesh.rotation.x = -scrollY * (elapsedTime * 0.00005);
+    console.log("animate");
 
     // Render
+    renderer.clear();
     renderer.render(scene, camera);
 
     // Call tick again on the next frame
     requestAnimationFrame(animate);
-
-    // console.log("animate");
-    // requestAnimationFrame(animate);
-
-    // particle.rotation.x += 0.0;
-    // particle.rotation.y -= 0.004;
-    // circle.rotation.x -= 0.002;
-    // circle.rotation.y -= 0.003;
-    // skelet.rotation.x -= 0.001;
-    // skelet.rotation.y += 0.002;
-    // renderer.clear();
-
-    // renderer.render(scene, camera);
   }
 
   animate();
