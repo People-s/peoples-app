@@ -1,59 +1,54 @@
-This project was bootstrapped with
-[Create React App](https://github.com/facebook/create-react-app).
+<br />
+<h1 align="center">People's</h1>
 
-## Available Scripts
+## About The Project
 
-In the project directory, you can run:
+Decentralized social media platform that helps connect web2 and web3 people, plus let's users take the ownership of their own content.
 
-### `npm start`
+### Built With
 
-Runs the app in the development mode.<br /> Open
-[http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [Hardhat](https://hardhat.org/)
+- [Solidity](https://docs.soliditylang.org/en/v0.8.11/)
+- [Alchemy](https://www.alchemy.com/)
+- [React](https://reactjs.org/)
+- Moralis
 
-The page will reload if you make edits.<br /> You will also see any lint errors
-in the console.
+### Prerequisites
 
-### `npm test`
+- [Node.js](https://nodejs.org/en/download/)
+- [Metmask](https://metamask.io/)
 
-Launches the test runner in the interactive watch mode.<br /> See the section
-about
-[running tests](https://facebook.github.io/create-react-app/docs/running-tests)
-for more information.
+### Installation
 
-### `npm run build`
+1. Install all the dependencies - `npm install`
 
-Builds the app for production to the `build` folder.<br /> It correctly bundles
-React in production mode and optimizes the build for the best performance.
+2. Create an account on Alchemy, then create a new app and select "Rinkeby" as a network.
 
-The build is minified and the filenames include the hashes.<br /> Your app is
-ready to be deployed!
+3. Create a `.env` file in the root folder and add the
+   following variables:
 
-See the section about
-[deployment](https://facebook.github.io/create-react-app/docs/deployment) for
-more information.
+```
+   API_URL=<ALCHEMY_API_URL>
+   API_KEY=<THE_LAST_PART OF_THE_API_URL>
+   PRIVATE_KEY=<YOUR_WALLET'S_PRIVATE_KEY>
+   CONTRACT_ADDRESS=<DEPOLOYED_TOKEN_ADDRESS>
+   REACT_APP_CONTRACT_ADDRESS=<DEPOLOYED_TOKEN_ADDRESS>
+```
 
-### `npm run eject`
+Hint: You can get your own API key in the alchemy dashboard. The last part can be added after deploying the token.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Compiling the Contract
 
-If you aren’t satisfied with the build tool and configuration choices, you can
-`eject` at any time. This command will remove the single build dependency from
-your project.
+run `npx hardhat compile` command.
 
-Instead, it will copy all the configuration files and the transitive
-dependencies (webpack, Babel, ESLint, etc) right into your project so you have
-full control over them. All of the commands except `eject` will still work, but
-they will point to the copied scripts so you can tweak them. At this point
-you’re on your own.
+### Deploying Smart Contract
 
-You don’t have to ever use `eject`. The curated feature set is suitable for
-small and middle deployments, and you shouldn’t feel obligated to use this
-feature. However we understand that this tool wouldn’t be useful if you couldn’t
-customize it when you are ready for it.
+Run `npx hardhat run scripts/deploy.js --network rinkeby` command.
 
-## Learn More
+## This has been created during ETHGlobal LFGrow Hackathon
 
-You can learn more in the
-[Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+[People's- ETH Global Showcase]()
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Live Preview
+
+[]()
