@@ -14,12 +14,12 @@ export function init() {
 
   document.addEventListener("scroll", animateParticles);
 
-  let scrollX = 0;
+  // let scrollX = 0;
   let scrollY = 0;
 
   function animateParticles() {
     scrollY = window.scrollY;
-    scrollX = window.scrollX;
+    // scrollX = window.scrollX;
   }
 
   scene = new THREE.Scene();
@@ -63,6 +63,7 @@ export function init() {
   const particlesMaterial = new THREE.PointsMaterial({
     // transparent: true,
     size: 0.005,
+    // color: 0x000,
   });
   sphereMaterial.color = new THREE.Color(0xfffffff);
 
@@ -111,12 +112,13 @@ export function init() {
   window.addEventListener("resize", onWindowResize, false);
 
   const clock = new THREE.Clock();
+  renderer.render(scene, camera);
 
   function animate() {
     const elapsedTime = clock.getElapsedTime();
 
     // Update objects
-    sphere.rotation.y = 0.5 * elapsedTime;
+    sphere.rotation.y = 0.3 * elapsedTime;
 
     // Update Orbital Controls
     // controls.update()
@@ -125,7 +127,7 @@ export function init() {
     // particlesMesh.rotation.y = scrollY * (elapsedTime * 0.00008);
     // particlesMesh.rotation.x = scrollY * (elapsedTime * 0.00008);
     // particlesMesh.rotation.x = scrollY * (elapsedTime * 0.00005);
-    particlesMesh.rotation.x = -scrollY * (elapsedTime * 0.00005);
+    particlesMesh.rotation.x = -scrollY * (elapsedTime * 0.00001);
     console.log("animate");
 
     // Render
@@ -136,7 +138,7 @@ export function init() {
     requestAnimationFrame(animate);
   }
 
-  animate();
+  // animate();
 
   function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
