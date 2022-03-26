@@ -40,7 +40,7 @@ export function initLogo() {
   const cylinderGeometry = new THREE.CylinderGeometry(
     0.2,
     0.2,
-    2,
+    1.4,
     40,
     40,
     false
@@ -65,7 +65,7 @@ export function initLogo() {
   torus.position.setY(0.2);
   sphere.position.setY(1.1);
   sphere.position.setX(0.4);
-  cylinder.position.setY(-0.8);
+  cylinder.position.setY(-0.6);
 
   groups.add(torus);
   groups.add(cylinder);
