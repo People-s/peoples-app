@@ -141,6 +141,21 @@ const Home: FC = () => {
             </ul>
           </div>
         </Box>
+        <Box width="100%">
+          <Text fontSize="xxx-large" align="center" mt="80%">
+            Join us now!
+          </Text>
+          <Flex>
+            <Box mt={4} ml="auto" mr="auto">
+              <ConnectButton text="Join" size="md" />
+            </Box>
+            {account && (
+              <Link to="/dashboard">
+                <Button>Enter</Button>
+              </Link>
+            )}
+          </Flex>
+        </Box>
       </Grid>
     </>
   );
