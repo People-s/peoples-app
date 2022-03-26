@@ -13,6 +13,7 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverTrigger,
+  useColorMode,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { SettingsIcon } from "@chakra-ui/icons";
@@ -20,15 +21,21 @@ import { Link } from "react-router-dom";
 import { Logo } from "../../Logo";
 import ConnectButton from "../ConnectButton/ConnectButton";
 import ThemeColorButton from "../ThemeColorButton/ThemeColorButton";
+import { LogoWhite } from "../../LogoWhite";
 
 const Header: React.FC = () => {
   const userName = "Vitalik Testlord";
+  const { colorMode } = useColorMode();
 
   return (
     <Flex px={6} py={3} alignItems="center" flex="0 1 auto" boxShadow="md">
       <Link to="/">
         <Flex dir="row" alignItems="center">
-          <Logo h={10} mr={1} />
+          {colorMode === "dark" ? (
+            <LogoWhite h={10} mr={1} />
+          ) : (
+            <Logo h={10} mr={1} />
+          )}
           <Text fontWeight="bold">eople's</Text>
         </Flex>
       </Link>

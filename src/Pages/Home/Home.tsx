@@ -5,6 +5,7 @@ import ConnectButton from "../../Components/ConnectButton/ConnectButton";
 
 import { init } from "./script";
 import { Logo } from "../../Logo";
+import { LogoWhite } from "../../LogoWhite";
 import { Web3ModalContext } from "../../Components/Web3Modal/Web3Modal";
 
 const Home: FC = () => {
@@ -13,6 +14,7 @@ const Home: FC = () => {
   };
 
   const { colorMode } = useColorMode();
+  console.log("colorMode", colorMode);
 
   const { account } = useContext(Web3ModalContext);
 
@@ -20,10 +22,14 @@ const Home: FC = () => {
     <>
       <Box id="canvas" position="fixed" height="100%" width="100%" />
       {/* page one */}
-      <Box position="fixed" m={6}>
+      <Box position="fixed" ml={6} mt={3}>
         <Link to="/">
           <Flex dir="row" alignItems="center">
-            <Logo h={10} mr={1} />
+            {colorMode === "dark" ? (
+              <LogoWhite h={10} mr={1} />
+            ) : (
+              <Logo h={10} mr={1} />
+            )}
             <Text fontWeight="bold">eople's</Text>
           </Flex>
         </Link>
