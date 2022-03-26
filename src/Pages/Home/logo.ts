@@ -7,10 +7,18 @@ export function initLogo() {
 
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1);
-  renderer.setSize(window.innerWidth / 2, window.innerHeight / 2);
+  renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.autoClear = false;
   renderer.setClearColor(0x000000, 0.0);
   document.getElementById("logo")?.appendChild(renderer.domElement);
+
+  document.addEventListener("scroll", animateParticles);
+
+  let scrollY = 0;
+
+  function animateParticles() {
+    scrollY = window.scrollY;
+  }
 
   scene = new THREE.Scene();
 
@@ -20,7 +28,7 @@ export function initLogo() {
     1,
     1000
   );
-  camera.position.z = 2;
+  camera.position.z = 3;
   scene.add(camera);
 
   // Objects
@@ -53,6 +61,7 @@ export function initLogo() {
 
     // Update objects
     sphere.rotation.y = 0.2 * elapsedTime;
+    sphere.position.y = scrollY * 0.001;
 
     // Render
     renderer.clear();
@@ -62,7 +71,7 @@ export function initLogo() {
     requestAnimationFrame(animate);
   }
 
-  // animate();
+  animate();
 
   function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;

@@ -98,7 +98,7 @@ export function initBackground() {
     requestAnimationFrame(animate);
   }
 
-  // animate();
+  animate();
 
   function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;

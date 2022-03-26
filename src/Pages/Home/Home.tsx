@@ -35,14 +35,7 @@ const Home: FC = () => {
   return (
     <>
       <Box id="background" position="fixed" height="100%" width="100%" />
-      <Box
-        id="logo"
-        position="fixed"
-        height="100%"
-        width="50%"
-        right={0}
-        top="25%"
-      />
+      <Box id="logo" position="fixed" height="100%" width="50%" right="400px" />
       {/* page one */}
       <Box position="fixed" ml={6} mt={3}>
         <Link to="/">
