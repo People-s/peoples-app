@@ -112,7 +112,7 @@ export function init() {
   window.addEventListener("resize", onWindowResize, false);
 
   const clock = new THREE.Clock();
-  renderer.render(scene, camera);
+  // renderer.render(scene, camera);
 
   function animate() {
     const elapsedTime = clock.getElapsedTime();
@@ -138,7 +138,7 @@ export function init() {
     requestAnimationFrame(animate);
   }
 
-  // animate();
+  animate();
 
   function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
