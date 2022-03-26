@@ -22,7 +22,6 @@ import ConnectButton from "../ConnectButton/ConnectButton";
 import ThemeColorButton from "../ThemeColorButton/ThemeColorButton";
 
 const Header: React.FC = () => {
-
   const userName = "Vitalik Testlord";
 
   return (
@@ -74,7 +73,7 @@ const Header: React.FC = () => {
       {/* <Button onClick={() => setIsLoggedIn(!isLoggedIn)}>
         <Text>{isLoggedIn ? "Log out" : "Log in"}</Text>
       </Button> */}
-      <ConnectButton />
+      <ConnectButton text="Connect" />
     </Flex>
   );
 };

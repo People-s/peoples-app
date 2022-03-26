@@ -1,29 +1,35 @@
-import { FC } from "react";
-import { Box, Button, Text, Grid } from "@chakra-ui/react";
+import { FC, useContext } from "react";
+import { Box, Button, Text, Grid, Flex, useColorMode } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import ConnectButton from "../../Components/ConnectButton/ConnectButton";
 
 import { init } from "./script";
+import { Logo } from "../../Logo";
+import { Web3ModalContext } from "../../Components/Web3Modal/Web3Modal";
 
 const Home: FC = () => {
   window.onload = function () {
     init();
   };
 
+  const { colorMode } = useColorMode();
+
+  const { account } = useContext(Web3ModalContext);
+
   return (
     <>
-      <Box
-        id="canvas"
-        style={{
-          position: "absolute",
-          height: "100%",
-          width: "100%",
-        }}
-      />
+      <Box id="canvas" position="fixed" height="100%" width="100%" />
       {/* page one */}
+      <Box position="fixed" m={6}>
+        <Link to="/">
+          <Flex dir="row" alignItems="center">
+            <Logo h={10} mr={1} />
+            <Text fontWeight="bold">eople's</Text>
+          </Flex>
+        </Link>
+      </Box>
       <Grid
         p={4}
-        color="white"
         h="100%"
         minH="100vh"
         display="flex"
@@ -34,20 +40,24 @@ const Home: FC = () => {
         bgAttachment="fixed"
         pos="relative"
       >
-        <Text>This is the Application Homepage</Text>
-        <Text>
-          This is the Application HomepageThis is the Application HomepageThis
-          is the Application Homepage
+        <Text mb={4}>
+          People's is a social media platform powered by Lens Protocol and
+          Polygon.
         </Text>
-        <ConnectButton />
-        <Link to="/dashboard">
-          <Button>Go to App</Button>
-        </Link>
+        <Flex>
+          <Box mr={4}>
+            <ConnectButton text="Join" size="md" />
+          </Box>
+          {account && (
+            <Link to="/dashboard">
+              <Button>Enter</Button>
+            </Link>
+          )}
+        </Flex>
       </Grid>
       {/* page two */}
       <Grid
         p={4}
-        color="white"
         h="100%"
         minH="100vh"
         display="flex"
@@ -58,10 +68,15 @@ const Home: FC = () => {
         bgAttachment="fixed"
         pos="relative"
       >
-        <Text>This is the Application Homepage</Text>
         <Text>
-          This is the Application HomepageThis is the Application HomepageThis
-          is the Application Homepage
+          Connect with people with similar causes & ideas and share the meaning
+          and significance of NFT's. Be part of the next-gen Social Media by
+          participating in creating the future.
+        </Text>
+        <Text>
+          Our mission is to get users of web 2.0 to web 3.0 and attract them
+          with new kind of communication style. It is easy just click connect
+          button and connect to the future of web
         </Text>
       </Grid>
     </>
