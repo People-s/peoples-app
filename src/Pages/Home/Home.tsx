@@ -1,5 +1,14 @@
-import { FC, useContext } from "react";
-import { Box, Button, Text, Grid, Flex, useColorMode } from "@chakra-ui/react";
+import { FC, useContext, useEffect } from "react";
+import {
+  Box,
+  Button,
+  Text,
+  Grid,
+  Flex,
+  useColorMode,
+  UnorderedList,
+  ListItem,
+} from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import ConnectButton from "../../Components/ConnectButton/ConnectButton";
 
@@ -9,14 +18,17 @@ import { Logo } from "../../Logo";
 import { LogoWhite } from "../../LogoWhite";
 import { Web3ModalContext } from "../../Components/Web3Modal/Web3Modal";
 
+import "./home.css";
+
 const Home: FC = () => {
-  window.onload = function () {
-    initBackground();
-    initLogo();
-  };
+  useEffect(() => {
+    window.onload = function () {
+      initBackground();
+      initLogo();
+    };
+  });
 
   const { colorMode } = useColorMode();
-  console.log("colorMode", colorMode);
 
   const { account } = useContext(Web3ModalContext);
 
@@ -56,12 +68,14 @@ const Home: FC = () => {
         pos="relative"
         templateColumns={{ base: "auto", md: "1fr 1fr" }}
       >
-        <Box>
-          <Text mb={4} fontSize="2xl" textAlign="right">
-            People's is a social media platform powered by Lens Protocol and
-            Polygon.
+        <Box ml={12}>
+          <Text fontSize="7xl" textAlign="right">
+            People's
           </Text>
-          <Flex justifyContent="flex-end">
+          <Text mb={5} fontSize="2xl" textAlign="right">
+            a social media platform powered by Lens Protocol and Polygon.
+          </Text>
+          <Flex justifyContent="flex-end" alignItems="center">
             <Box mr={4}>
               <ConnectButton text="Join" size="md" />
             </Box>
@@ -84,17 +98,55 @@ const Home: FC = () => {
         bgPosition="center"
         bgAttachment="fixed"
         pos="relative"
+        templateColumns={{ base: "auto", md: "1fr 1fr" }}
       >
-        <Text>
-          Connect with people with similar causes & ideas and share the meaning
-          and significance of NFT's. Be part of the next-gen Social Media by
-          participating in creating the future.
-        </Text>
-        <Text>
-          Our mission is to get users of web 2.0 to web 3.0 and attract them
-          with new kind of communication style. It is easy just click connect
-          button and connect to the future of web
-        </Text>
+        <Box ml={12} textAlign="right">
+          <Text fontSize="3xl">Connect</Text>
+          <Text>people with similar causes & ideas</Text>
+          <Text mb={5}>
+            be part of the next-gen Social Media by participating in creating
+            the future.
+          </Text>
+
+          <Text fontSize="3xl">Our mission</Text>
+          <Text>
+            attract web 2.0 to web 3.0 with new kind of communication style
+          </Text>
+          <Text>
+            harness the power of blockchain by forming token gated communities
+          </Text>
+          <div id="content">
+            <ul className="timeline">
+              <li className="event" data-date="1990">
+                <h3>Web 1</h3>
+                <UnorderedList>
+                  <ListItem>Mostly Read-Only</ListItem>
+                  <ListItem>Company Focus</ListItem>
+                  <ListItem>Owning Content</ListItem>
+                  <ListItem>Dedicated Infrastructure</ListItem>
+                </UnorderedList>
+              </li>
+              <li className="event" data-date="2005">
+                <h3>Web 2</h3>
+                <UnorderedList>
+                  <ListItem>Wildly Read-Write</ListItem>
+                  <ListItem>Community Focus</ListItem>
+                  <ListItem>Sharing Content</ListItem>
+                  <ListItem>Centralized Infrastructure</ListItem>
+                </UnorderedList>
+              </li>
+              <li className="event" data-date="2020">
+                <h3>Web 3</h3>
+                <UnorderedList>
+                  <ListItem> Payable and Personal</ListItem>
+                  <ListItem> Individual Focus</ListItem>
+                  <ListItem> Consolidating Content</ListItem>
+                  <ListItem> Decentralized Infrastructure</ListItem>
+                </UnorderedList>
+              </li>
+            </ul>
+          </div>
+        </Box>
       </Grid>
     </>
   );

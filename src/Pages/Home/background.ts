@@ -76,6 +76,8 @@ export function initBackground() {
 
   window.addEventListener("resize", onWindowResize, false);
 
+  renderer.render(scene, camera);
+
   function animate() {
     // Update objects
 
@@ -96,7 +98,7 @@ export function initBackground() {
     requestAnimationFrame(animate);
   }
 
-  animate();
+  // animate();
 
   function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
