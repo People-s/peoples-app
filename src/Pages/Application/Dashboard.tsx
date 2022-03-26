@@ -6,9 +6,11 @@ import JoinChannelList from "../../Components/JoinChannelList/JoinChannelList";
 import Channels from "../../Components/Channels/Channels";
 import CurrentlyOnline from "../../Components/CurrentlyOnline/CurrentlyOnline";
 import NewChannel from "../../Components/NewChannel/NewChannel";
+import PostWall from "../../Components/PostsWall/PostsWall";
 
 const Dashboard: FC = () => {
   const [view, setView] = useState<string | undefined>("Join");
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
   const { colorMode } = useColorMode();
   const boxBackground = useMemo(
@@ -27,18 +29,27 @@ const Dashboard: FC = () => {
         borderRadius={4}
         boxShadow="lg"
       >
-        <Channels />
+        <Channels
+          selectedIndex={selectedIndex}
+          setSelectedIndex={(index: any) => setSelectedIndex(index)}
+          changeView={(a: string) => setView(a)}
+        />
       </Box>
       <Box
         bgColor={boxBackground}
         flex={1}
         mx={6}
-        p={6}
+        pt={6}
+        pl={4}
+        pr={4}
         borderRadius={4}
         boxShadow="lg"
       >
         {/*<CreateNetworks /> */}
-        {view === "Create" ? (
+
+        {selectedIndex ? (
+          <PostWall />
+        ) : view === "Create" ? (
           <NewChannel
             typeOfTheList={view}
             changeView={(a: string) => setView(a)}
