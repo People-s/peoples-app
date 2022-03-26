@@ -51,12 +51,14 @@ export interface ChannelsProps {
   selectedIndex: number | null;
   setSelectedIndex?: any;
   changeView?: any;
+  channels: any
 }
 
 const Channels: React.FC<ChannelsProps> = ({
   selectedIndex,
   setSelectedIndex,
   changeView,
+  channels
 }) => {
   const { colorMode } = useColorMode();
   const tileBackground = useMemo(
@@ -116,29 +118,33 @@ const Channels: React.FC<ChannelsProps> = ({
           Vote
         </Button>
       </HStack>
-      {mockChannels.map(({ name }, index) => {
+      {/*@ts-ignore */}
+      {channels.map(({ id, attributes: { handle } }) => {
         return (
           <Flex
+            key={id}
             dir="row"
             p={3}
             borderRadius="lg"
             cursor="pointer"
             alignItems="center"
-            onClick={() => setSelectedIndex(index)}
+            onClick={() => setSelectedIndex(id)}
             borderColor={
-              index === selectedIndex ? tileBorderColor : "transparent"
+              id === selectedIndex ? tileBorderColor : "transparent"
             }
             borderWidth={1}
-            bgColor={index === selectedIndex ? tileBackground : "transparent"}
+            bgColor={id === selectedIndex ? tileBackground : "transparent"}
           >
             <Avatar
               cursor="pointer"
               size="sm"
-              name={name}
+              name={handle}
               mr={6}
               bgColor="gray"
+              src={'https://placekitten.com/100/100'}
+              
             />
-            <Text>{name}</Text>
+            <Text>{handle}</Text>
             <Spacer />
             <Button bgColor="transparent" borderRadius="full" size="xs">
               <CloseIcon w={3} h={3} />

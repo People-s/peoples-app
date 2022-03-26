@@ -8,6 +8,7 @@ import * as serviceWorker from "./serviceWorker";
 import { DAppProvider, Rinkeby, Config, Mumbai } from "@usedapp/core";
 import { MoralisProvider } from "react-moralis";
 import Web3ModalProvider from "./Components/Web3Modal/Web3Modal";
+import { AppNetworksContextProvider } from "./Components/AppNetworksContext/AppNetworkContext";
 
 const dappProviderConfig: Config = {
   readOnlyChainId: Mumbai.chainId,
@@ -40,7 +41,9 @@ ReactDOM.render(
         <DAppProvider config={dappProviderConfig}>
           <ChakraProvider theme={theme}>
             <Web3ModalProvider>
-              <App />
+              <AppNetworksContextProvider>
+                <App />
+              </AppNetworksContextProvider>
             </Web3ModalProvider>
           </ChakraProvider>
         </DAppProvider>

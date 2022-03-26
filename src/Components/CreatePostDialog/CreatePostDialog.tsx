@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from 'react'
+import { FC, useMemo, useRef, useState } from 'react'
 import {
     Modal,
     ModalOverlay,
@@ -10,6 +10,7 @@ import {
     Button,
     useDisclosure,
     Box,
+    useColorMode,
 } from '@chakra-ui/react'
 
 interface CreatePostModalProps {
@@ -23,11 +24,17 @@ interface CreatePostModalProps {
 const CreatePostDialog: FC<CreatePostModalProps> = ({ isOpen = false, onOpen, onClose, onPostCreate }) => {
     const textFieldRef = useRef<HTMLDivElement>(null);
     const [isPristine, setIsPristine] = useState(true);
-    
+    const { colorMode } = useColorMode();
+    const textFieldBg = useMemo(
+        () => (colorMode === "dark" ? "blue.800" : "gray.50"),
+        [colorMode]
+    );
+
+
     const handlePostCreate = () => {
         const text = textFieldRef.current?.textContent;
 
-        if(!isPristine && text?.length && onPostCreate) {
+        if (!isPristine && text?.length && onPostCreate) {
             onPostCreate(text)
         }
     }
@@ -38,12 +45,12 @@ const CreatePostDialog: FC<CreatePostModalProps> = ({ isOpen = false, onOpen, on
                 <ModalHeader>Create new post</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody p={4} >
-                    <Box   
+                    <Box
                         ref={textFieldRef}
                         _focus={{ outline: 'none' }}
                         _focusVisible={{
                             outline: 'none',
-                            backgroundColor: 'gray.50'
+                            backgroundColor: textFieldBg
                         }}
                         p={2}
                         suppressContentEditableWarning={true}

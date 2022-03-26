@@ -59,6 +59,7 @@ const CurrentlyOnline: React.FC = () => {
       {mockCurrentlyOnline.map(({ name, address }, index) => {
         return (
           <Flex
+            key={index}
             dir="row"
             p={2}
             borderRadius="lg"
