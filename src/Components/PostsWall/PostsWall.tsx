@@ -2,15 +2,13 @@ import {
   Box,
   Flex,
   Avatar,
-  Text,
-  useColorMode,
   Button,
-  Icon,
+  useDisclosure,
 } from "@chakra-ui/react";
-import React, { useMemo, useState } from "react";
-import { MdCopyright, MdSupervisorAccount, MdThumbUp } from "react-icons/md";
-import { ChannelListProps } from "../JoinChannelList/JoinChannelList";
+import React from "react";
+
 import Post from "../Post/Post";
+import CreatePostDialog from "../CreatePostDialog/CreatePostDialog";
 
 const mockChannels = [
   {
@@ -63,10 +61,27 @@ const mockChannels = [
   },
 ];
 const PostWall: React.FC = () => {
-  return (
-    <Box pl={-1} pr={-1} overflow="auto" height="80vh">
+  const { isOpen: isCreateOpen, onOpen: onCreateOpen, onClose: onCreateClose } = useDisclosure();
+  const sendPostCreate = (text: string) => {
+    alert(`You created post with text: 
+      ${text}
+    `)
+  }
+
+  return (<>
+    <Flex dir="row" alignItems="center" mb={4}>
+      <Avatar
+        cursor="pointer"
+        size="md"
+        name="Ada Lovelace"
+        mr={6}
+        bgColor="gray"
+      />
+      <Button size="md" width={'100%'} colorScheme="blue" variant="outline" onClick={onCreateOpen}>Click here to write your post</Button>
+    </Flex>
+    <Box pl={-1} pr={-1} pb={-1} overflow="auto" height="80vh">
       {mockChannels.map(
-        ({ title, description, coin, members, votes }, index) => {
+        ({ title, description, coin, votes }, index) => {
           return (
             <Post
               key={index}
@@ -79,6 +94,8 @@ const PostWall: React.FC = () => {
         }
       )}
     </Box>
+    <CreatePostDialog isOpen={isCreateOpen} onOpen={onCreateOpen} onClose={onCreateClose} onPostCreate={sendPostCreate}/>
+  </>
   );
 };
 
