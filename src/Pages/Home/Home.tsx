@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import ConnectButton from "../../Components/ConnectButton/ConnectButton";
 
 import { initBackground } from "./background";
-import { initLogo } from "./logo";
+import { initLogo } from "./logoGltf";
 import { Logo } from "../../Logo";
 import { LogoWhite } from "../../LogoWhite";
 import { Web3ModalContext } from "../../Components/Web3Modal/Web3Modal";
