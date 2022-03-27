@@ -29,6 +29,8 @@ const PostWall: FC<PostWallProps> = ({
     onOpen: onCreateOpen,
     onClose: onCreateClose,
   } = useDisclosure();
+  let [isSecret, setIsSecret] = useState(false);
+
   const [posts, setPosts] = useState<any[]>([]);
   const sendPostCreate = (text: string) => {
     createPost(channelId, text);
@@ -43,6 +45,11 @@ const PostWall: FC<PostWallProps> = ({
     }
     receivePosts();
   }, [channelId]);
+
+  const openDialog = (isSecret: boolean) => {
+    setIsSecret(isSecret);
+    onCreateOpen();
+  };
 
   return (
     <>
@@ -62,7 +69,7 @@ const PostWall: FC<PostWallProps> = ({
               mr={2}
               colorScheme="blue"
               variant="outline"
-              onClick={onCreateOpen}
+              onClick={() => openDialog(false)}
             >
               Create a post
             </Button>
@@ -70,7 +77,7 @@ const PostWall: FC<PostWallProps> = ({
               size="md"
               colorScheme="blue"
               variant="outline"
-              onClick={onCreateOpen}
+              onClick={() => openDialog(true)}
             >
               Create a secret post 😉
             </Button>
@@ -100,6 +107,7 @@ const PostWall: FC<PostWallProps> = ({
         onOpen={onCreateOpen}
         onClose={onCreateClose}
         onPostCreate={sendPostCreate}
+        isSecret={isSecret}
       />
     </>
   );

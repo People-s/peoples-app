@@ -1,4 +1,4 @@
-import { FC, useMemo, useRef, useState } from "react";
+import { FC, useRef, useState } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -8,9 +8,7 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
-  useDisclosure,
-  Box,
-  useColorMode,
+  Text,
   Textarea,
 } from "@chakra-ui/react";
 
@@ -19,13 +17,14 @@ interface CreatePostModalProps {
   onOpen?: () => void;
   onClose: () => void;
   onPostCreate?: (content: string) => void;
+  isSecret: boolean;
 }
 
 const CreatePostDialog: FC<CreatePostModalProps> = ({
   isOpen = false,
-  onOpen,
   onClose,
   onPostCreate,
+  isSecret,
 }) => {
   const textFieldRef = useRef<HTMLDivElement>(null);
   let [value, setValue] = useState("");
@@ -46,7 +45,12 @@ const CreatePostDialog: FC<CreatePostModalProps> = ({
     <Modal isOpen={isOpen} onClose={onClose} initialFocusRef={textFieldRef}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Create new post</ModalHeader>
+        <ModalHeader>{isSecret ? "Secret post" : "Post"}</ModalHeader>
+        <Text px={6} fontSize="sm">
+          {isSecret
+            ? "Share your secret thoughts with all your secret friends 😉"
+            : "Create a new post"}
+        </Text>
         <ModalCloseButton />
         <ModalBody p={4}>
           <Textarea
