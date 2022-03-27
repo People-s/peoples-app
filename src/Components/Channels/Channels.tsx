@@ -10,11 +10,12 @@ import {
   Icon,
   HStack,
 } from "@chakra-ui/react";
-import React, { useMemo, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 
 import { CloseIcon } from "@chakra-ui/icons";
 import { ChannelListProps } from "../JoinChannelList/JoinChannelList";
 import { MdCreate, MdThumbUp, MdViewList } from "react-icons/md";
+import AppNetworkContext from "../AppNetworksContext/AppNetworkContext";
 
 const mockChannels = [
   {
@@ -48,18 +49,19 @@ const mockChannels = [
 ];
 
 export interface ChannelsProps {
-  selectedIndex: number | null;
-  setSelectedIndex?: any;
+  activeChannel: any;
+  setActiveChannel?: any;
   changeView?: any;
   channels: any
 }
 
 const Channels: React.FC<ChannelsProps> = ({
-  selectedIndex,
-  setSelectedIndex,
+  activeChannel,
+  setActiveChannel,
   changeView,
   channels
 }) => {
+  const { followAttempt } = useContext(AppNetworkContext);
   const { colorMode } = useColorMode();
   const tileBackground = useMemo(
     () => (colorMode === "dark" ? "blue.800" : "blue.50"),
@@ -89,7 +91,7 @@ const Channels: React.FC<ChannelsProps> = ({
           leftIcon={<Icon as={MdViewList} mt="auto" />}
           onClick={() => {
             changeView("Join");
-            setSelectedIndex(null);
+            setActiveChannel(null);
           }}
         >
           List
@@ -101,7 +103,7 @@ const Channels: React.FC<ChannelsProps> = ({
           leftIcon={<Icon as={MdCreate} mt="auto" />}
           onClick={() => {
             changeView("Create");
-            setSelectedIndex(null);
+            setActiveChannel(null);
           }}
         >
           Create
@@ -112,14 +114,14 @@ const Channels: React.FC<ChannelsProps> = ({
           leftIcon={<Icon as={MdThumbUp} mt="auto" />}
           onClick={() => {
             changeView("Vote");
-            setSelectedIndex(null);
+            setActiveChannel(null);
           }}
         >
           Vote
         </Button>
       </HStack>
       {/*@ts-ignore */}
-      {channels.map(({ id, attributes: { handle } }) => {
+      {channels.map(({ id, attributes: { handle, profileId } }) => {
         return (
           <Flex
             key={id}
@@ -128,12 +130,12 @@ const Channels: React.FC<ChannelsProps> = ({
             borderRadius="lg"
             cursor="pointer"
             alignItems="center"
-            onClick={() => setSelectedIndex(id)}
+            onClick={() => setActiveChannel(profileId)}
             borderColor={
-              id === selectedIndex ? tileBorderColor : "transparent"
+              id === activeChannel ? tileBorderColor : "transparent"
             }
             borderWidth={1}
-            bgColor={id === selectedIndex ? tileBackground : "transparent"}
+            bgColor={id === activeChannel ? tileBackground : "transparent"}
           >
             <Avatar
               cursor="pointer"
@@ -146,6 +148,9 @@ const Channels: React.FC<ChannelsProps> = ({
             />
             <Text>{handle}</Text>
             <Spacer />
+            <Button variant="ghost" colorScheme="blue" borderRadius="full" size="xs" onClick={() => { followAttempt(Number(profileId))}}>
+              Follow
+            </Button>
             <Button bgColor="transparent" borderRadius="full" size="xs">
               <CloseIcon w={3} h={3} />
             </Button>

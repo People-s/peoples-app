@@ -17,64 +17,24 @@ import {
   Select,
 } from "@chakra-ui/react";
 import { Description } from "@ethersproject/properties";
-import React, { Dispatch, SetStateAction, useMemo, useState } from "react";
-import {
-  MdCopyright,
-  MdSupervisorAccount,
-  MdCreate,
-  MdThumbUp,
-} from "react-icons/md";
-import { ChannelListProps } from "../JoinChannelList/JoinChannelList";
+import React, { Dispatch, SetStateAction, useContext, useMemo, useState } from "react";
 
-const mockChannels = [
-  {
-    title: "Dogs Lovers",
-    description:
-      "We love dogs and we speak about them, but you can also join if you have a cat",
-    coin: "10 BNB",
-    members: 543,
-  },
-  {
-    title: "Football Fans",
-    description:
-      "We love dogs and we speak about them, but you can also join if you have a cat",
-    coin: "10 BNB",
-    members: 543,
-  },
-  {
-    title: "Football Fans",
-    description:
-      "We love dogs and we speak about them, but you can also join if you have a cat",
-    coin: "10 BNB",
-    members: 543,
-  },
-  {
-    title: "Football Fans",
-    description:
-      "We love dogs and we speak about them, but you can also join if you have a cat",
-    coin: "10 BNB",
-    members: 543,
-  },
-  {
-    title: "Football Fans",
-    description:
-      "We love dogs and we speak about them, but you can also join if you have a cat",
-    coin: "10 BNB",
-    members: 543,
-  },
-  {
-    title: "Football Fans",
-    description:
-      "We love dogs and we speak about them, but you can also join if you have a cat",
-    coin: "10 BNB",
-    members: 543,
-  },
-];
+import AppNetworkContext from "../AppNetworksContext/AppNetworkContext";
+import { ChannelListProps } from "../JoinChannelList/JoinChannelList";
 
 const NewChannel: React.FC<ChannelListProps> = ({
   typeOfTheList,
   changeView,
 }) => {
+  const [channelName, setChannelName] = useState<string>('')
+  const {createNetwork} = useContext(AppNetworkContext);
+
+  const handleChannelCreate = async () => {
+    if(channelName.length) {
+      const newNetwork = await createNetwork(channelName);
+      console.log(newNetwork);
+    }
+  }
   return (
     <Box>
       <HStack borderBottom="1px solid #E4E4E4" p="2" justify="space-between">
@@ -94,6 +54,7 @@ const NewChannel: React.FC<ChannelListProps> = ({
                 id="ChannelsTitle"
                 background="white"
                 placeholder="Channels Title"
+                onChange={(e) => setChannelName(e.target.value)}
               />
               <FormHelperText>Must be unique!</FormHelperText>
               <FormLabel htmlFor="Description" mt="4">
@@ -167,7 +128,7 @@ const NewChannel: React.FC<ChannelListProps> = ({
           <Button colorScheme="white" variant="outline" size="sm" width="100%">
             Cancel
           </Button>
-          <Button colorScheme="teal" size="sm" width="100%">
+          <Button colorScheme="teal" size="sm" width="100%" onClick={handleChannelCreate}>
             Create
           </Button>
         </HStack>

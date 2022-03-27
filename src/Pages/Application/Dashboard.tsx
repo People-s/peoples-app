@@ -12,8 +12,8 @@ import AppNetworkContext from "../../Components/AppNetworksContext/AppNetworkCon
 const Dashboard: FC = () => {
   const [view, setView] = useState<string | undefined>("Join");
   const [profiles, setProfiles] = useState<any[]>([])
-  const [selectedIndex, setSelectedIndex] = useState(null);
-  const { getProfiles } = useContext(AppNetworkContext);
+  const [activeChannel, setActiveChannel] = useState<string | null>(null);
+  const { addresses, getProfiles } = useContext(AppNetworkContext);
 
   const { colorMode } = useColorMode();
   const boxBackground = useMemo(
@@ -22,11 +22,17 @@ const Dashboard: FC = () => {
   );
 
   useEffect(() => {
+    console.log({activeChannel})
+  }, [activeChannel])
+
+  useEffect(() => {
     async function getChannels() {
       const receivedProfiles = await getProfiles();
-      console.log(receivedProfiles)
+      const channels = receivedProfiles.filter((p: any) => {
+        return p.attributes.creator.toLowerCase() === addresses['Peoples Channel'].toLowerCase()
+      })
       //@ts-ignore
-      setProfiles(receivedProfiles)
+      setProfiles(channels);
     }
     getChannels()
   }, [])
@@ -44,8 +50,8 @@ const Dashboard: FC = () => {
         boxShadow="lg"
       >
         <Channels
-          selectedIndex={selectedIndex}
-          setSelectedIndex={(index: any) => setSelectedIndex(index)}
+          activeChannel={activeChannel}
+          setActiveChannel={(channelId: string) => setActiveChannel(channelId)}
           changeView={(a: string) => setView(a)}
           channels={profiles}
         />
@@ -62,8 +68,8 @@ const Dashboard: FC = () => {
       >
         {/*<CreateNetworks /> */}
 
-        {selectedIndex ? (
-          <PostWall />
+        {activeChannel ? (
+          <PostWall channel={profiles.find(p => p.attributes.profileId === activeChannel)} />
         ) : view === "Create" ? (
           <NewChannel
             typeOfTheList={view}

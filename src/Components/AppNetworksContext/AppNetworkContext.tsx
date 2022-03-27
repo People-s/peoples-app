@@ -16,14 +16,16 @@ import addresses from '../../addresses.json'
 
 
 interface AppNetworkContextProps {
-    getProfiles: () => void;
-    getPosts: (args: any) => void;
+    //@ts-ignore
+    getProfiles: () => Promise<Object<Attributes>[]>;
+    //@ts-ignore
+    getPosts: () => Promise<Object<Attributes>[]>;
     getFollowModulesEvents: (args: any) => void;
     createChannelProposalSend: (args: any) => void;
-    createProfile: (args: any) => void;
+    createProfile: (address: string, profileName: string) => void;
     createProfileSend: (args: any) => void;
-    createNetwork: (args: any) => void;
-    createPost: (args: any) => void;
+    createNetwork: (networkName: string) => void;
+    createPost: (channelId: number, contentText: string) => void;
     confirmChannelProposalSend: (args: any) => void;
     followAttempt: (args: any) => void;
     initializeFollowModule: (args: any) => void;
@@ -85,7 +87,7 @@ export const AppNetworksContextProvider: FC = ({ children }) => {
         // we dont have field for post creator
         // maybe we can send the post creator in the contentURI 
 
-        console.log(results)
+        return results;
     }
 
 
@@ -209,7 +211,6 @@ export const AppNetworksContextProvider: FC = ({ children }) => {
 
 
     // usestate hooks
-    const [handleNetwork, setHandleNetwork] = useState("");
     const [NFTAmount, setNFTAmount] = useState("0");
     const [currencyAmount, setCurrencyAmount] = useState("0");
     const [NFTAddress, setNFTAddress] = useState(constants.AddressZero);
@@ -217,13 +218,13 @@ export const AppNetworksContextProvider: FC = ({ children }) => {
 
 
     // function to create channels
-    function createNetwork() {
+    function createNetwork(networkName: string) {
 
 
         // structure for new  channels
         const InputStruct: CreateProfileDataStruct = {
             to: addresses['Peoples Channel'], // all profiles are owned by our contract
-            handle: `${handleNetwork}`,
+            handle: networkName.toLocaleLowerCase().trim(),
             imageURI:
                 'https://ipfs.fleek.co/ipfs/ghostplantghostplantghostplantghostplantghostplantghostplan',
             followModule: constants.AddressZero,
@@ -231,9 +232,6 @@ export const AppNetworksContextProvider: FC = ({ children }) => {
             followNFTURI:
                 'https://ipfs.fleek.co/ipfs/ghostplantghostplantghostplantghostplantghostplantghostplan',
         };
-
-
-        getProfiles();
         return createNetworkSend(InputStruct)
 
     }
@@ -241,13 +239,13 @@ export const AppNetworksContextProvider: FC = ({ children }) => {
 
 
     // function to create profiles instead of networks
-    function createProfile(address: string) {
+    function createProfile(address: string, profileName: string) {
 
 
         // structure for new  profiles
         const InputStruct: CreateProfileDataStruct = {
             to: address,  // here we pass the address of the user logged to system
-            handle: `${handleNetwork}`,
+            handle: profileName,
             imageURI:
                 'https://ipfs.fleek.co/ipfs/ghostplantghostplantghostplantghostplantghostplantghostplan',
             followModule: constants.AddressZero,
@@ -282,28 +280,27 @@ export const AppNetworksContextProvider: FC = ({ children }) => {
         return setFollowModuleSend(14, addresses['Required Currency / NFT Follow Module'], data);
     }
 
-    function followAttempt() {
-
+    function followAttempt(channelId: number) {
+        console.log('Follow channel: ', channelId)
         // following channel Id number 14
-        return followSend([14], [[]]);
+        return followSend([channelId], [[]]);
 
     }
 
-    function createPost(profileId = 14) {
+    function createPost(profileId = 14, contentText: string) {
 
         // creating a post for channel 14
 
         const inputStruct: PostDataStruct = {
             profileId,
-            contentURI:
-                'https://ipfs.fleek.co/ipfs/plantghostplantghostplantghostplantghostplantghostplantghos',
+            contentURI: contentText,
+                // 'https://ipfs.fleek.co/ipfs/plantghostplantghostplantghostplantghostplantghostplantghos',
             collectModule: emptyCollectModuleAddr,
             collectModuleData: [],
             referenceModule: constants.AddressZero,
             referenceModuleData: [],
         };
 
-        getPosts();
         return postSend(inputStruct)
 
     }

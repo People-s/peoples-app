@@ -4,70 +4,37 @@ import {
   Avatar,
   Button,
   useDisclosure,
+  VStack,
+  Text
 } from "@chakra-ui/react";
-import React from "react";
+import { FC, useContext, useEffect, useState } from "react";
 
 import Post from "../Post/Post";
 import CreatePostDialog from "../CreatePostDialog/CreatePostDialog";
+import AppNetworkContext from "../AppNetworksContext/AppNetworkContext";
 
-const mockChannels = [
-  {
-    title: "Dogs Lovers",
-    description:
-      "We love dogs and we speak about them, but you can also join if you have a cat",
-    coin: "10 BNB",
-    members: 543,
-    votes: 2,
-  },
-  {
-    title: "Football Fans",
-    description:
-      "We love dogs and we speak about them, but you can also join if you have a cat",
-    coin: "10 BNB",
-    members: 543,
-    votes: 2,
-  },
-  {
-    title: "Football Fans",
-    description:
-      "We love dogs and we speak about them, but you can also join if you have a cat",
-    coin: "10 BNB",
-    members: 543,
-    votes: 2,
-  },
-  {
-    title: "Football Fans",
-    description:
-      "We love dogs and we speak about them, but you can also join if you have a cat",
-    coin: "10 BNB",
-    members: 543,
-    votes: 2,
-  },
-  {
-    title: "Football Fans",
-    description:
-      "We love dogs and we speak about them, but you can also join if you have a cat",
-    coin: "10 BNB",
-    members: 543,
-    votes: 2,
-  },
-  {
-    title: "Football Fans",
-    description:
-      "We love dogs and we speak about them, but you can also join if you have a cat",
-    coin: "10 BNB",
-    members: 543,
-    votes: 2,
-  },
-];
-const PostWall: React.FC = () => {
+interface PostWallProps {
+  channel: any
+}
+
+const PostWall: FC<PostWallProps> = ({ channel: { attributes: { profileId: channelId } } }) => {
+  const { createPost, getPosts } = useContext(AppNetworkContext);
   const { isOpen: isCreateOpen, onOpen: onCreateOpen, onClose: onCreateClose } = useDisclosure();
+  const [posts, setPosts] = useState<any[]>([])
   const sendPostCreate = (text: string) => {
-    alert(`You created post with text: 
-      ${text}
-    `)
+    createPost(channelId, text)
   }
-
+  useEffect(() => {
+    async function receivePosts() {
+      const receivedPosts = await getPosts();
+      const filteredPosts = receivedPosts.filter(post => {
+        return post.attributes.profileId === channelId
+      })
+      setPosts(filteredPosts);
+    }
+    receivePosts()
+  }, []);
+  
   return (<>
     <Flex dir="row" alignItems="center" mb={4}>
       <Avatar
@@ -77,24 +44,27 @@ const PostWall: React.FC = () => {
         mr={6}
         bgColor="gray"
       />
-      <Button size="md" width={'100%'} colorScheme="blue" variant="outline" onClick={onCreateOpen}>Click here to write your post</Button>
+      <VStack width={'100%'}>
+        <Button size="md" width={'100%'} colorScheme="blue" variant="outline" onClick={onCreateOpen}>Click here to write your post</Button>
+        <Text mt={0} fontSize='sm'>Remember! You need to follow this channel first!</Text>
+      </VStack>
     </Flex>
     <Box pl={-1} pr={-1} pb={-1} overflow="auto" height="80vh">
-      {mockChannels.map(
-        ({ title, description, coin, votes }, index) => {
+      {posts.map(
+        ({ id, attributes: { contentURI, transaction_index } }) => {
           return (
             <Post
-              key={index}
-              title={title}
-              description={description}
-              votes={votes}
-              coin={coin}
+              key={id}
+              title="Post Title"
+              description={contentURI}
+              votes={transaction_index}
+              coin={"MATIC"}
             />
           );
         }
       )}
     </Box>
-    <CreatePostDialog isOpen={isCreateOpen} onOpen={onCreateOpen} onClose={onCreateClose} onPostCreate={sendPostCreate}/>
+    <CreatePostDialog isOpen={isCreateOpen} onOpen={onCreateOpen} onClose={onCreateClose} onPostCreate={sendPostCreate} />
   </>
   );
 };
