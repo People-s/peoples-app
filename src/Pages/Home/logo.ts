@@ -1,4 +1,3 @@
-import { group } from "console";
 import * as THREE from "three";
 
 export function initLogo(colorMode: string) {
@@ -7,15 +6,16 @@ export function initLogo(colorMode: string) {
       ? new THREE.Color("rgb(255, 255, 255)")
       : new THREE.Color("rgb(0, 0, 0)");
 
-  var renderer: THREE.WebGLRenderer,
-    scene: THREE.Scene,
-    camera: THREE.PerspectiveCamera;
-
-  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1);
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.autoClear = false;
   renderer.setClearColor(0x000000, 0.0);
+
+  const parent = document.getElementById("logo");
+  while (parent?.firstChild) {
+    parent.firstChild.remove();
+  }
   document.getElementById("logo")?.appendChild(renderer.domElement);
 
   document.addEventListener("scroll", animateParticles);
@@ -28,9 +28,9 @@ export function initLogo(colorMode: string) {
     scrollY = window.scrollY;
   }
 
-  scene = new THREE.Scene();
+  const scene = new THREE.Scene();
 
-  camera = new THREE.PerspectiveCamera(
+  const camera = new THREE.PerspectiveCamera(
     75,
     window.innerWidth / window.innerHeight,
     1,

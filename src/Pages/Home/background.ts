@@ -15,6 +15,11 @@ export function initBackground(colorMode: string) {
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.autoClear = false;
   renderer.setClearColor(0x000000, 0.0);
+
+  const parent = document.getElementById("background");
+  while (parent?.firstChild) {
+    parent.firstChild.remove();
+  }
   document.getElementById("background")?.appendChild(renderer.domElement);
 
   document.addEventListener("scroll", animateParticles);

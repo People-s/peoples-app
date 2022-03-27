@@ -21,7 +21,7 @@ const dappProviderConfig: Config = {
 };
 
 const theme = extendTheme({
-  initialColorMode: "dark",
+  // initialColorMode: "dark",
   styles: {
     global: {
       body: {
