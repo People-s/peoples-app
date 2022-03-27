@@ -68,14 +68,14 @@ const ChannelList: React.FC<ChannelListProps> = ({
               </Box>
               <Flex w="30%" justifyContent="flex-end">
                 <Flex mx={4}>
-                  <Icon as={MdCopyright} ml="2.5" />
+                  <Icon as={MdCopyright} mr={1} />
                   <Text fontSize="xs" overflow="hidden" textOverflow="ellipsis">
                     {coin}
                   </Text>
                 </Flex>
                 {typeOfTheList === "Join" ? (
                   <Flex>
-                    <Icon as={MdSupervisorAccount} ml="1" />
+                    <Icon as={MdSupervisorAccount} mr={1} />
                     <Text
                       fontSize="xs"
                       overflow="hidden"
@@ -86,7 +86,7 @@ const ChannelList: React.FC<ChannelListProps> = ({
                   </Flex>
                 ) : (
                   <Flex>
-                    <Icon as={MdThumbUp} ml="1" />
+                    <Icon as={MdThumbUp} mr={1} />
                     <Text
                       fontSize="xs"
                       overflow="hidden"
