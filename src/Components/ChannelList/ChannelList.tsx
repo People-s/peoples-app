@@ -55,68 +55,48 @@ const ChannelList: React.FC<ChannelListProps> = ({
                 mr={6}
                 bgColor="gray"
               />
-              <Box overflow="hidden">
+              <Box overflow="hidden" w="70%">
                 <Text
                   textColor={colorMode === "dark" ? "blue.200" : "blue.400"}
                   // textColor="blue.400"
                 >
                   {title}
                 </Text>
-                <Text
-                  fontSize="xs"
-                  overflow="hidden"
-                  width="80%"
-                  textOverflow="ellipsis"
-                >
+                <Text fontSize="xs" overflow="hidden" textOverflow="ellipsis">
                   {description}
                 </Text>
               </Box>
-              <Box overflow="hidden" ml="auto">
-                <Icon
-                  as={MdCopyright}
-                  mt="auto"
-                  ml="2.5"
-                />
-                <Text
-                  fontSize="xs"
-                  overflow="hidden"
-                  textOverflow="ellipsis"
-                >
-                  {coin}
-                </Text>
-              </Box>
-              {typeOfTheList === "Join" ? (
-                <Box overflow="hidden" ml={6}>
-                  <Icon
-                    as={MdSupervisorAccount}
-                    mt="auto"
-                    ml="1"
-                  />
-                  <Text
-                    fontSize="xs"
-                    overflow="hidden"
-                    textOverflow="ellipsis"
-                  >
-                    {members}
+              <Flex w="30%" justifyContent="flex-end">
+                <Flex mx={4}>
+                  <Icon as={MdCopyright} ml="2.5" />
+                  <Text fontSize="xs" overflow="hidden" textOverflow="ellipsis">
+                    {coin}
                   </Text>
-                </Box>
-              ) : (
-                <Box overflow="hidden" ml={6}>
-                  <Icon
-                    as={MdThumbUp}
-                    mt="auto"
-                    ml="1"
-                  />
-                  <Text
-                    fontSize="xs"
-                    overflow="hidden"
-                    textOverflow="ellipsis"
-                  >
-                    {votes}/10
-                  </Text>
-                </Box>
-              )}
-
+                </Flex>
+                {typeOfTheList === "Join" ? (
+                  <Flex>
+                    <Icon as={MdSupervisorAccount} ml="1" />
+                    <Text
+                      fontSize="xs"
+                      overflow="hidden"
+                      textOverflow="ellipsis"
+                    >
+                      {members}
+                    </Text>
+                  </Flex>
+                ) : (
+                  <Flex>
+                    <Icon as={MdThumbUp} ml="1" />
+                    <Text
+                      fontSize="xs"
+                      overflow="hidden"
+                      textOverflow="ellipsis"
+                    >
+                      {votes}/10
+                    </Text>
+                  </Flex>
+                )}
+              </Flex>
               <Button colorScheme="blue" size="xs" ml={6}>
                 {typeOfTheList}
               </Button>
