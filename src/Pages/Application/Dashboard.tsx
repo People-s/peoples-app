@@ -8,12 +8,14 @@ import CurrentlyOnline from "../../Components/CurrentlyOnline/CurrentlyOnline";
 import NewChannel from "../../Components/NewChannel/NewChannel";
 import PostWall from "../../Components/PostsWall/PostsWall";
 import AppNetworkContext from "../../Components/AppNetworksContext/AppNetworkContext";
+import { useMoralis } from "react-moralis";
 
 const Dashboard: FC = () => {
   const [view, setView] = useState<string | undefined>("Join");
   const [profiles, setProfiles] = useState<any[]>([])
   const [activeChannel, setActiveChannel] = useState<string | null>(null);
   const { addresses, getProfiles } = useContext(AppNetworkContext);
+  const { isInitialized } = useMoralis()
 
   const { colorMode } = useColorMode();
   const boxBackground = useMemo(
@@ -23,15 +25,17 @@ const Dashboard: FC = () => {
 
   useEffect(() => {
     async function getChannels() {
-      const receivedProfiles = await getProfiles();
-      const channels = receivedProfiles.filter((p: any) => {
-        return p.attributes.creator.toLowerCase() === addresses['Peoples Channel'].toLowerCase()
-      })
-      //@ts-ignore
-      setProfiles(channels);
+      if(isInitialized) {
+        const receivedProfiles = await getProfiles();
+        const channels = receivedProfiles.filter((p: any) => {
+          return p.attributes.creator.toLowerCase() === addresses['Peoples Channel'].toLowerCase()
+        })
+        //@ts-ignore
+        setProfiles(channels);
+      }
     }
     getChannels()
-  }, [])
+  }, [isInitialized])
 
   return (
     <Flex p={6} flex="1 1 auto">

@@ -13,6 +13,7 @@ import { FC, useContext, useEffect, useState } from "react";
 import Post from "../Post/Post";
 import CreatePostDialog from "../CreatePostDialog/CreatePostDialog";
 import AppNetworkContext from "../AppNetworksContext/AppNetworkContext";
+import { useMoralis } from "react-moralis";
 
 interface PostWallProps {
   channel: any;
@@ -30,21 +31,23 @@ const PostWall: FC<PostWallProps> = ({
     onClose: onCreateClose,
   } = useDisclosure();
   let [isSecret, setIsSecret] = useState(false);
-
-  const [posts, setPosts] = useState<any[]>([]);
+  const { isInitialized } = useMoralis()
+  const [posts, setPosts] = useState<any[]>([])
   const sendPostCreate = (text: string) => {
     createPost(channelId, text);
   };
   useEffect(() => {
     async function receivePosts() {
-      const receivedPosts = await getPosts();
-      const filteredPosts = receivedPosts.filter((post) => {
-        return post.attributes.profileId === channelId;
-      });
-      setPosts(filteredPosts);
+      if (isInitialized) {
+        const receivedPosts = await getPosts();
+        const filteredPosts = receivedPosts.filter(post => {
+          return post.attributes.profileId === channelId
+        })
+        setPosts(filteredPosts);
+      }
     }
-    receivePosts();
-  }, [channelId]);
+    receivePosts()
+  }, [channelId, isInitialized]);
 
   const openDialog = (isSecret: boolean) => {
     setIsSecret(isSecret);
