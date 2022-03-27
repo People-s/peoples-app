@@ -8,7 +8,6 @@ import {
   useColorMode,
   UnorderedList,
   ListItem,
-  Spacer,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import ConnectButton from "../../Components/ConnectButton/ConnectButton";
@@ -110,9 +109,24 @@ const Home: FC = () => {
           <Text>
             harness the power of blockchain by forming token gated communities
           </Text>
-          <div id="content">
-            <ul className="timeline">
-              <li className="event" data-date="1990">
+          <Box ml="144px">
+            <Box
+              className="timeline"
+              background={
+                colorMode === "dark"
+                  ? "rgba(255, 255, 255, 0.03)"
+                  : "rgba(0, 0, 0, 0.04)"
+              }
+            >
+              <Box
+                className="event"
+                data-date="1990"
+                borderBottom={
+                  colorMode === "dark"
+                    ? "1px dashed rgba(75, 255, 255, 0.1)"
+                    : "1px dashed rgba(255, 255, 255, 0.1)"
+                }
+              >
                 <h3>Web 1.0</h3>
                 <UnorderedList>
                   <ListItem>Mostly Read-Only</ListItem>
@@ -120,8 +134,16 @@ const Home: FC = () => {
                   <ListItem>Owning Content</ListItem>
                   <ListItem>Dedicated Infrastructure</ListItem>
                 </UnorderedList>
-              </li>
-              <li className="event" data-date="2005">
+              </Box>
+              <Box
+                className="event"
+                data-date="2005"
+                borderBottom={
+                  colorMode === "dark"
+                    ? "1px dashed rgba(75, 255, 255, 0.1)"
+                    : "1px dashed rgba(255, 255, 255, 0.1)"
+                }
+              >
                 <h3>Web 2.0</h3>
                 <UnorderedList>
                   <ListItem>Wildly Read-Write</ListItem>
@@ -129,8 +151,16 @@ const Home: FC = () => {
                   <ListItem>Sharing Content</ListItem>
                   <ListItem>Centralized Infrastructure</ListItem>
                 </UnorderedList>
-              </li>
-              <li className="event" data-date="2020">
+              </Box>
+              <Box
+                className="event"
+                data-date="2020"
+                borderBottom={
+                  colorMode === "dark"
+                    ? "1px dashed rgba(75, 255, 255, 0.1)"
+                    : "1px dashed rgba(255, 255, 255, 0.1)"
+                }
+              >
                 <h3>Web 3.0</h3>
                 <UnorderedList>
                   <ListItem> Payable and Personal</ListItem>
@@ -138,9 +168,9 @@ const Home: FC = () => {
                   <ListItem> Consolidating Content</ListItem>
                   <ListItem> Decentralized Infrastructure</ListItem>
                 </UnorderedList>
-              </li>
-            </ul>
-          </div>
+              </Box>
+            </Box>
+          </Box>
         </Box>
         <Box width="100%" marginTop="auto" pb={12}>
           <Text fontSize="xxx-large" align="center">

@@ -84,11 +84,11 @@ export function initBackground() {
     // Update Orbital Controls
     // controls.update()
     // particlesMesh.rotation.x += 0.0;
-     particlesMesh.rotation.y -= 0.0004;
-     // particlesMesh.rotation.y = scrollY * (elapsedTime * 0.00008);
-     // particlesMesh.rotation.x = scrollY * (elapsedTime * 0.00008);
-     // particlesMesh.rotation.x = scrollY * (elapsedTime * 0.00005);
-     particlesMesh.rotation.x = 0.004;
+    particlesMesh.rotation.y -= 0.0004;
+    // particlesMesh.rotation.y = scrollY * (elapsedTime * 0.00008);
+    // particlesMesh.rotation.x = scrollY * (elapsedTime * 0.00008);
+    // particlesMesh.rotation.x = scrollY * (elapsedTime * 0.00005);
+    particlesMesh.rotation.x = 0.004;
 
     // Render
     renderer.clear();
