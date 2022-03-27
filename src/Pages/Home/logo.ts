@@ -85,7 +85,7 @@ export function initLogo() {
 
     // Update objects
     groups.rotation.y = 0.2 * elapsedTime;
-    groups.position.y = scrollY * 0.0008;
+    groups.position.y = scrollY * 0.0006;
 
     // Render
     renderer.clear();

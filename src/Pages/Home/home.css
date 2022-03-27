@@ -14,7 +14,7 @@ h1 {
   font-size: 2.4em;
 }
 #timeline-content {
-  margin-top: 50px;
+  margin-top: 48px;
   text-align: center;
 }
 
@@ -29,12 +29,12 @@ h1 {
   background: rgba(255, 255, 255, 0.03);
   color: rgba(255, 255, 255, 0.8);
   font-family: "Chivo", sans-serif;
-  margin: 50px auto;
+  margin: 48px auto;
   letter-spacing: 0.5px;
   position: relative;
   line-height: 1.4em;
   font-size: 1.03em;
-  padding: 50px;
+  padding: 48px;
   list-style: none;
   text-align: left;
   font-weight: 100;
@@ -55,7 +55,7 @@ h1 {
 .timeline .event {
   border-bottom: 1px dashed rgba(75, 37, 37, 0.1);
   padding-bottom: 25px;
-  margin-bottom: 50px;
+  margin-bottom: 48px;
   position: relative;
 }
 .timeline .event:last-of-type {

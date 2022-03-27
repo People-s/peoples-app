@@ -8,6 +8,7 @@ import {
   useColorMode,
   UnorderedList,
   ListItem,
+  Spacer,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import ConnectButton from "../../Components/ConnectButton/ConnectButton";
@@ -141,12 +142,12 @@ const Home: FC = () => {
             </ul>
           </div>
         </Box>
-        <Box width="100%">
-          <Text fontSize="xxx-large" align="center" mt="80%">
+        <Box width="100%" marginTop="auto" pb={12}>
+          <Text fontSize="xxx-large" align="center">
             Join us now!
           </Text>
-          <Flex>
-            <Box mt={4} ml="auto" mr="auto">
+          <Flex justifyContent="center">
+            <Box mr={4}>
               <ConnectButton text="Join" size="md" />
             </Box>
             {account && (
