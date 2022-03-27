@@ -7,8 +7,9 @@ import {
   Button,
   Icon,
 } from "@chakra-ui/react";
-import React, { useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { MdCopyright, MdSupervisorAccount, MdThumbUp } from "react-icons/md";
+import AppNetworkContext from "../AppNetworksContext/AppNetworkContext";
 import { ChannelListProps } from "../JoinChannelList/JoinChannelList";
 
 const mockChannels = [
@@ -72,13 +73,14 @@ const ChannelList: React.FC<ChannelListProps> = ({ typeOfTheList }) => {
     () => (colorMode === "dark" ? "gray.400" : "gray.300"),
     [colorMode]
   );
-
+    
   return (
     <Box>
       {mockChannels.map(
         ({ title, description, coin, members, votes }, index) => {
           return (
             <Flex
+              key={index}
               dir="row"
               p="2"
               m="2"

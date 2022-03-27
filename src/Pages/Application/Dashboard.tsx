@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from "react";
+import { FC, useContext, useEffect, useMemo, useState } from "react";
 import { Box, Flex, useColorMode } from "@chakra-ui/react";
 import CreateNetworks from "./CreateNetworks";
 import JoinChannelList from "../../Components/JoinChannelList/JoinChannelList";
@@ -7,16 +7,36 @@ import Channels from "../../Components/Channels/Channels";
 import CurrentlyOnline from "../../Components/CurrentlyOnline/CurrentlyOnline";
 import NewChannel from "../../Components/NewChannel/NewChannel";
 import PostWall from "../../Components/PostsWall/PostsWall";
+import AppNetworkContext from "../../Components/AppNetworksContext/AppNetworkContext";
 
 const Dashboard: FC = () => {
   const [view, setView] = useState<string | undefined>("Join");
-  const [selectedIndex, setSelectedIndex] = useState(null);
+  const [profiles, setProfiles] = useState<any[]>([])
+  const [activeChannel, setActiveChannel] = useState<string | null>(null);
+  const { addresses, getProfiles } = useContext(AppNetworkContext);
 
   const { colorMode } = useColorMode();
   const boxBackground = useMemo(
     () => (colorMode === "dark" ? "gray.700" : "gray.50"),
     [colorMode]
   );
+
+  useEffect(() => {
+    console.log({activeChannel})
+  }, [activeChannel])
+
+  useEffect(() => {
+    async function getChannels() {
+      const receivedProfiles = await getProfiles();
+      const channels = receivedProfiles.filter((p: any) => {
+        return p.attributes.creator.toLowerCase() === addresses['Peoples Channel'].toLowerCase()
+      })
+      //@ts-ignore
+      setProfiles(channels);
+    }
+    getChannels()
+  }, [])
+
   return (
     <Flex p={6} flex="1 1 auto">
       {/* out of all the boxes (channels, central & online) 
@@ -30,9 +50,10 @@ const Dashboard: FC = () => {
         boxShadow="lg"
       >
         <Channels
-          selectedIndex={selectedIndex}
-          setSelectedIndex={(index: any) => setSelectedIndex(index)}
+          activeChannel={activeChannel}
+          setActiveChannel={(channelId: string) => setActiveChannel(channelId)}
           changeView={(a: string) => setView(a)}
+          channels={profiles}
         />
       </Box>
       <Box
@@ -47,8 +68,8 @@ const Dashboard: FC = () => {
       >
         {/*<CreateNetworks /> */}
 
-        {selectedIndex ? (
-          <PostWall />
+        {activeChannel ? (
+          <PostWall channel={profiles.find(p => p.attributes.profileId === activeChannel)} />
         ) : view === "Create" ? (
           <NewChannel
             typeOfTheList={view}
