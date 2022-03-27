@@ -63,11 +63,11 @@ const CreatePostDialog: FC<CreatePostModalProps> = ({
         </ModalBody>
 
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={handlePostCreate}>
-            Create Post
-          </Button>
           <Button variant="ghost" onClick={onClose}>
             Close
+          </Button>
+          <Button colorScheme="blue" mr={3} onClick={handlePostCreate}>
+            Create Post
           </Button>
         </ModalFooter>
       </ModalContent>

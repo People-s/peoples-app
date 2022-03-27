@@ -9,62 +9,47 @@ import {
   useColorMode,
   Icon,
   HStack,
+  useDisclosure,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
 } from "@chakra-ui/react";
-import React, { useContext, useMemo, useState } from "react";
+import React, { useContext, useMemo } from "react";
 
-import { CloseIcon } from "@chakra-ui/icons";
-import { ChannelListProps } from "../JoinChannelList/JoinChannelList";
+import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import { MdCreate, MdThumbUp, MdViewList } from "react-icons/md";
 import AppNetworkContext from "../AppNetworksContext/AppNetworkContext";
-
-const mockChannels = [
-  {
-    name: "Strip Clubs",
-    id: 0,
-  },
-  {
-    name: "Strip Clubs",
-    id: 1,
-  },
-  {
-    name: "Strip Clubs",
-    id: 2,
-  },
-  {
-    name: "Strip Clubs",
-    id: 3,
-  },
-  {
-    name: "Strip Clubs",
-    id: 4,
-  },
-  {
-    name: "Strip Clubs",
-    id: 5,
-  },
-  {
-    name: "Strip Clubs",
-    id: 6,
-  },
-];
 
 export interface ChannelsProps {
   activeChannel: any;
   setActiveChannel?: any;
   changeView?: any;
-  channels: any
+  channels: any;
 }
 
 const Channels: React.FC<ChannelsProps> = ({
   activeChannel,
   setActiveChannel,
   changeView,
-  channels
+  channels,
 }) => {
   const { followAttempt } = useContext(AppNetworkContext);
   const { colorMode } = useColorMode();
-  const tileBackground = useMemo(() => colorMode === 'dark' ? "blue.800" : "blue.50", [colorMode]);
-  const tileBorderColor = useMemo(() => colorMode === 'dark' ? "blue.700" : "blue.100", [colorMode]);
+  const tileBackground = useMemo(
+    () => (colorMode === "dark" ? "blue.800" : "blue.50"),
+    [colorMode]
+  );
+  const tileBorderColor = useMemo(
+    () => (colorMode === "dark" ? "blue.700" : "blue.100"),
+    [colorMode]
+  );
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <Box>
       <Heading
@@ -77,9 +62,8 @@ const Channels: React.FC<ChannelsProps> = ({
       >
         Channels
       </Heading>
-      <HStack justify="space-between">
+      <HStack justify="space-between" mb={4}>
         <Button
-          m="2"
           colorScheme="blue"
           size="sm"
           leftIcon={<Icon as={MdViewList} mt="auto" />}
@@ -91,7 +75,6 @@ const Channels: React.FC<ChannelsProps> = ({
           List
         </Button>{" "}
         <Button
-          m="2"
           colorScheme="blue"
           size="sm"
           leftIcon={<Icon as={MdCreate} mt="auto" />}
@@ -129,7 +112,9 @@ const Channels: React.FC<ChannelsProps> = ({
               profileId === activeChannel ? tileBorderColor : "transparent"
             }
             borderWidth={1}
-            bgColor={profileId === activeChannel ? tileBackground : "transparent"}
+            bgColor={
+              profileId === activeChannel ? tileBackground : "transparent"
+            }
           >
             <Avatar
               cursor="pointer"
@@ -137,14 +122,62 @@ const Channels: React.FC<ChannelsProps> = ({
               name={handle}
               mr={6}
               bgColor="gray"
-              src={'https://placekitten.com/100/100'}
-              
+              src={"https://placekitten.com/100/100"}
             />
             <Text>{handle}</Text>
             <Spacer />
-            <Button variant="ghost" colorScheme="blue" borderRadius="full" size="xs" onClick={() => { followAttempt(Number(profileId))}}>
+            <Button
+              variant="ghost"
+              colorScheme="blue"
+              borderRadius="full"
+              size="xs"
+              onClick={onOpen}
+            >
               Follow
             </Button>
+
+            <Modal isOpen={isOpen} onClose={onClose}>
+              <ModalOverlay />
+              <ModalContent>
+                <ModalCloseButton />
+                <ModalBody textAlign="center" pt={6}>
+                  <Flex mb={3} justifyContent="center">
+                    <Flex
+                      bgColor="blue.100"
+                      w={12}
+                      h={12}
+                      borderRadius="full"
+                      alignItems="center"
+                      justifyContent="center"
+                    >
+                      <CheckIcon color="blue.300" />
+                    </Flex>
+                  </Flex>
+                  <Text fontSize="lg" fontWeight="600" mb={4}>
+                    Are you sure you want to join this channel?
+                  </Text>
+                  <Text fontWeight="light" fontSize="sm">
+                    Remember that you need to meet requirements to join the
+                    given channel.
+                  </Text>
+                </ModalBody>
+
+                <ModalFooter>
+                  <Button variant="ghost" mr={3} onClick={onClose}>
+                    Cancel
+                  </Button>
+                  <Button
+                    colorScheme="blue"
+                    onClick={() => {
+                      followAttempt(Number(profileId));
+                    }}
+                  >
+                    Continue
+                  </Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
+
             <Button bgColor="transparent" borderRadius="full" size="xs">
               <CloseIcon w={3} h={3} />
             </Button>
