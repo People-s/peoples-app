@@ -72,7 +72,7 @@ const Channels: React.FC<ChannelsProps> = ({
             setActiveChannel(null);
           }}
         >
-          List
+          Join
         </Button>{" "}
         <Button
           colorScheme="blue"
