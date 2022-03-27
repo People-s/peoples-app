@@ -33,7 +33,7 @@ const PostWall: FC<PostWallProps> = ({ channel: { attributes: { profileId: chann
       setPosts(filteredPosts);
     }
     receivePosts()
-  }, []);
+  }, [channelId]);
   
   return (<>
     <Flex dir="row" alignItems="center" mb={4}>
