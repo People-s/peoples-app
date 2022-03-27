@@ -116,44 +116,59 @@ const ChannelList: React.FC<ChannelListProps> = ({ typeOfTheList }) => {
                   {description}
                 </Text>
               </Box>
-              <Box overflow="hidden" ml="10">
-                <Icon as={MdCopyright} mt="auto" ml="2.5" />
+              <Box overflow="hidden" ml="auto">
+                <Icon
+                  as={MdCopyright}
+                  mt="auto"
+                  ml="2.5"
+                  textColor={index === selectedIndex ? "gray.800" : "inherit"}
+                />
                 <Text
                   fontSize="xs"
                   overflow="hidden"
                   textOverflow="ellipsis"
-                  textColor="blue.200"
+                  textColor={index === selectedIndex ? "gray.800" : "inherit"}
                 >
                   {coin}
                 </Text>
               </Box>
               {typeOfTheList === "Join" ? (
-                <Box overflow="hidden" ml="10">
-                  <Icon as={MdSupervisorAccount} mt="auto" ml="1" />
+                <Box overflow="hidden" ml={6}>
+                  <Icon
+                    as={MdSupervisorAccount}
+                    mt="auto"
+                    ml="1"
+                    color={index === selectedIndex ? "gray.800" : "inherit"}
+                  />
                   <Text
                     fontSize="xs"
                     overflow="hidden"
                     textOverflow="ellipsis"
-                    textColor="blue.200"
+                    textColor={index === selectedIndex ? "gray.800" : "inherit"}
                   >
                     {members}
                   </Text>
                 </Box>
               ) : (
-                <Box overflow="hidden" ml="10">
-                  <Icon as={MdThumbUp} mt="auto" ml="1" />
+                <Box overflow="hidden" ml={6}>
+                  <Icon
+                    as={MdThumbUp}
+                    mt="auto"
+                    ml="1"
+                    color={index === selectedIndex ? "gray.800" : "inherit"}
+                  />
                   <Text
                     fontSize="xs"
                     overflow="hidden"
                     textOverflow="ellipsis"
-                    textColor="blue.200"
+                    textColor={index === selectedIndex ? "gray.800" : "inherit"}
                   >
                     {votes}/10
                   </Text>
                 </Box>
               )}
 
-              <Button colorScheme="blue" size="xs" ml="auto">
+              <Button colorScheme="blue" size="xs" ml={6}>
                 {typeOfTheList}
               </Button>
             </Flex>
