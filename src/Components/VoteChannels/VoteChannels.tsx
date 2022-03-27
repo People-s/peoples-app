@@ -93,14 +93,14 @@ const JoinChannelList: React.FC = () => {
         <Box>
           <Button
             m="2"
-            colorScheme="teal"
+            colorScheme="blue"
             size="sm"
             leftIcon={<Icon as={MdCreate} mt="auto" ml="2.5" />}
           >
             Create
           </Button>{" "}
           <Button
-            colorScheme="teal"
+            colorScheme="blue"
             size="sm"
             leftIcon={<Icon as={MdThumbUp} mt="auto" ml="2.5" />}
           >
@@ -133,7 +133,7 @@ const JoinChannelList: React.FC = () => {
               bgColor="gray"
             />
             <Box overflow="hidden">
-              <Text textColor="teal">{title}</Text>
+              <Text textColor="blue">{title}</Text>
               <Text
                 fontSize="xs"
                 overflow="hidden"
@@ -149,7 +149,7 @@ const JoinChannelList: React.FC = () => {
                 fontSize="xs"
                 overflow="hidden"
                 textOverflow="ellipsis"
-                textColor="teal"
+                textColor="blue"
               >
                 {coin}
               </Text>
@@ -160,12 +160,12 @@ const JoinChannelList: React.FC = () => {
                 fontSize="xs"
                 overflow="hidden"
                 textOverflow="ellipsis"
-                textColor="teal"
+                textColor="blue"
               >
                 {members}
               </Text>
             </Box>
-            <Button colorScheme="teal" size="xs" ml="auto">
+            <Button colorScheme="blue" size="xs" ml="auto">
               Vote
             </Button>
           </Flex>

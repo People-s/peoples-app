@@ -73,7 +73,7 @@ const ChannelList: React.FC<ChannelListProps> = ({ typeOfTheList }) => {
     () => (colorMode === "dark" ? "gray.400" : "gray.300"),
     [colorMode]
   );
-    
+
   return (
     <Box>
       {mockChannels.map(
@@ -102,12 +102,16 @@ const ChannelList: React.FC<ChannelListProps> = ({ typeOfTheList }) => {
                 bgColor="gray"
               />
               <Box overflow="hidden">
-                <Text textColor="teal">{title}</Text>
+                <Text
+                  textColor={index === selectedIndex ? "blue.500" : "blue.200"}
+                >
+                  {title}
+                </Text>
                 <Text
                   fontSize="xs"
                   overflow="hidden"
                   textOverflow="ellipsis"
-                  textColor="gray.800"
+                  textColor={index === selectedIndex ? "gray.800" : "inherit"}
                 >
                   {description}
                 </Text>
@@ -118,7 +122,7 @@ const ChannelList: React.FC<ChannelListProps> = ({ typeOfTheList }) => {
                   fontSize="xs"
                   overflow="hidden"
                   textOverflow="ellipsis"
-                  textColor="teal"
+                  textColor="blue.200"
                 >
                   {coin}
                 </Text>
@@ -130,7 +134,7 @@ const ChannelList: React.FC<ChannelListProps> = ({ typeOfTheList }) => {
                     fontSize="xs"
                     overflow="hidden"
                     textOverflow="ellipsis"
-                    textColor="teal"
+                    textColor="blue.200"
                   >
                     {members}
                   </Text>
@@ -142,14 +146,14 @@ const ChannelList: React.FC<ChannelListProps> = ({ typeOfTheList }) => {
                     fontSize="xs"
                     overflow="hidden"
                     textOverflow="ellipsis"
-                    textColor="teal"
+                    textColor="blue.200"
                   >
                     {votes}/10
                   </Text>
                 </Box>
               )}
 
-              <Button colorScheme="teal" size="xs" ml="auto">
+              <Button colorScheme="blue" size="xs" ml="auto">
                 {typeOfTheList}
               </Button>
             </Flex>

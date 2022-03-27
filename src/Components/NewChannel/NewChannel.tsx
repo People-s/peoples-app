@@ -17,7 +17,13 @@ import {
   Select,
 } from "@chakra-ui/react";
 import { Description } from "@ethersproject/properties";
-import React, { Dispatch, SetStateAction, useContext, useMemo, useState } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 
 import AppNetworkContext from "../AppNetworksContext/AppNetworkContext";
 import { ChannelListProps } from "../JoinChannelList/JoinChannelList";
@@ -26,15 +32,15 @@ const NewChannel: React.FC<ChannelListProps> = ({
   typeOfTheList,
   changeView,
 }) => {
-  const [channelName, setChannelName] = useState<string>('')
-  const {createNetwork} = useContext(AppNetworkContext);
+  const [channelName, setChannelName] = useState<string>("");
+  const { createNetwork } = useContext(AppNetworkContext);
 
   const handleChannelCreate = async () => {
-    if(channelName.length) {
+    if (channelName.length) {
       const newNetwork = await createNetwork(channelName);
       console.log(newNetwork);
     }
-  }
+  };
   return (
     <Box>
       <HStack borderBottom="1px solid #E4E4E4" p="2" justify="space-between">
@@ -52,7 +58,6 @@ const NewChannel: React.FC<ChannelListProps> = ({
               <FormLabel htmlFor="ChannelsTitle">Channel Title</FormLabel>
               <Input
                 id="ChannelsTitle"
-                background="white"
                 placeholder="Channels Title"
                 onChange={(e) => setChannelName(e.target.value)}
               />
@@ -60,11 +65,7 @@ const NewChannel: React.FC<ChannelListProps> = ({
               <FormLabel htmlFor="Description" mt="4">
                 Description
               </FormLabel>
-              <Input
-                id="Description"
-                background="white"
-                placeholder="Description"
-              />
+              <Input id="Description" placeholder="Description" />
               <FormHelperText>Must be unique!</FormHelperText>
               <Text fontSize="md" fontWeight="bold" mt="4">
                 Requirements
@@ -75,14 +76,10 @@ const NewChannel: React.FC<ChannelListProps> = ({
                   <FormLabel htmlFor="NFTAddress">
                     NFT Smart contract address
                   </FormLabel>
-                  <Input
-                    id="NFTAddress"
-                    background="white"
-                    placeholder="0xF949fd9f94jf9949"
-                  />
+                  <Input id="NFTAddress" placeholder="0xF949fd9f94jf9949" />
                 </Box>
               </HStack>
-              <HStack mt="10">
+              <HStack mt="10" alignItems="end">
                 <Checkbox mr="auto">Stake token</Checkbox>
                 <Box>
                   <FormLabel htmlFor="TokenName">Token name</FormLabel>
@@ -94,12 +91,7 @@ const NewChannel: React.FC<ChannelListProps> = ({
                 </Box>
                 <Box>
                   <FormLabel htmlFor="TokenAmount">Amount</FormLabel>
-                  <Input
-                    id="TokenAmount"
-                    background="white"
-                    type="number"
-                    placeholder="42"
-                  />
+                  <Input id="TokenAmount" type="number" placeholder="42" />
                 </Box>
               </HStack>
             </FormControl>
@@ -128,7 +120,12 @@ const NewChannel: React.FC<ChannelListProps> = ({
           <Button colorScheme="white" variant="outline" size="sm" width="100%">
             Cancel
           </Button>
-          <Button colorScheme="teal" size="sm" width="100%" onClick={handleChannelCreate}>
+          <Button
+            colorScheme="blue"
+            size="sm"
+            width="100%"
+            onClick={handleChannelCreate}
+          >
             Create
           </Button>
         </HStack>
