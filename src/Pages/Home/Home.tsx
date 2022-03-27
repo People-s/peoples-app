@@ -21,14 +21,14 @@ import { Web3ModalContext } from "../../Components/Web3Modal/Web3Modal";
 import "./home.css";
 
 const Home: FC = () => {
+  const { colorMode } = useColorMode();
+
   useEffect(() => {
     window.onload = function () {
-      initBackground();
-      initLogo();
+      initBackground(colorMode);
+      initLogo(colorMode);
     };
   });
-
-  const { colorMode } = useColorMode();
 
   const { account } = useContext(Web3ModalContext);
 

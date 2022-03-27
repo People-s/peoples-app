@@ -1,6 +1,11 @@
 import * as THREE from "three";
 
-export function initBackground() {
+export function initBackground(colorMode: string) {
+  const particleColor =
+    colorMode === "dark"
+      ? new THREE.Color("rgb(255, 255, 255)")
+      : new THREE.Color("rgb(0, 0, 0)");
+
   var renderer: THREE.WebGLRenderer,
     scene: THREE.Scene,
     camera: THREE.PerspectiveCamera;
@@ -62,9 +67,9 @@ export function initBackground() {
   const particlesMaterial = new THREE.PointsMaterial({
     // transparent: true,
     size: 0.005,
-    // color: 0x000,
+    color: particleColor,
   });
-  sphereMaterial.color = new THREE.Color(0xfffffff);
+  sphereMaterial.color = new THREE.Color(particleColor);
 
   // Mesh
 

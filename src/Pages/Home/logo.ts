@@ -1,7 +1,12 @@
 import { group } from "console";
 import * as THREE from "three";
 
-export function initLogo() {
+export function initLogo(colorMode: string) {
+  const particleColor =
+    colorMode === "dark"
+      ? new THREE.Color("rgb(255, 255, 255)")
+      : new THREE.Color("rgb(0, 0, 0)");
+
   var renderer: THREE.WebGLRenderer,
     scene: THREE.Scene,
     camera: THREE.PerspectiveCamera;
@@ -55,7 +60,7 @@ export function initLogo() {
     size: 0.005,
   });
 
-  sphereMaterial.color = new THREE.Color(0xfffffff);
+  sphereMaterial.color = particleColor;
 
   // Mesh
   const torus = new THREE.Points(torusGeometry, sphereMaterial);
