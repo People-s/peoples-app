@@ -27,7 +27,7 @@ Decentralized social media platform that helps connect Web 2 and Web 3 people, a
 
 1. Install all the dependencies - `npm install`
 
-2. Start up the live server = `npm start`
+2. Start up the live server - `npm start`
 
 ## This has been created during ETHGlobal LFGrow Hackathon
 
