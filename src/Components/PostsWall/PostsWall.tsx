@@ -42,7 +42,7 @@ const PostWall: FC<PostWallProps> = ({
       setPosts(filteredPosts);
     }
     receivePosts();
-  }, []);
+  }, [channelId]);
 
   return (
     <>

@@ -22,10 +22,6 @@ const Dashboard: FC = () => {
   );
 
   useEffect(() => {
-    console.log({activeChannel})
-  }, [activeChannel])
-
-  useEffect(() => {
     async function getChannels() {
       const receivedProfiles = await getProfiles();
       const channels = receivedProfiles.filter((p: any) => {
