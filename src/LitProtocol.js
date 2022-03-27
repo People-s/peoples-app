@@ -1,40 +1,44 @@
-
-import LitJsSdk from 'lit-js-sdk'
-
+import LitJsSdk from "lit-js-sdk";
 
 // Need to start lit client with this function, then use encryptSaveMessage to encrypt a message
 // then decryptMessage to recover the message
 
 export async function startClient() {
-    const client = new LitJsSdk.LitNodeClient()
-    await client.connect()
-    window.litNodeClient = client
+  const client = new LitJsSdk.LitNodeClient();
+  await client.connect();
+  window.litNodeClient = client;
 }
-
-
 
 // Function to make a signature
 export async function checkAndSignAuthMessage(chain) {
+  const authSig = await LitJsSdk.checkAndSignAuthMessage({ chain: chain });
 
-    const authSig = await LitJsSdk.checkAndSignAuthMessage({ chain: chain })
-
-    return authSig;
+  return authSig;
 }
 
+export async function encryptString(
+  authSig,
+  accessControlConditions,
+  chain,
+  message
+) {
+  const { encryptedString, symmetricKey } = await LitJsSdk.encryptString(
+    message
+  );
+  console.log("encryptedString", encryptedString);
 
-export async function encryptString(authSig, accessControlConditions, chain, message) {
-    const { encryptedString, symmetricKey } = await LitJsSdk.encryptString(
-        message
-    );
+  //   const encryptedSymmetricKey = await window.litNodeClient.saveEncryptionKey({
+  //     accessControlConditions,
+  //     symmetricKey,
+  //     authSig,
+  //     chain,
+  //   });
 
-    const encryptedSymmetricKey = await window.litNodeClient.saveEncryptionKey({
-        accessControlConditions,
-        symmetricKey,
-        authSig,
-        chain,
-    });
-
-    return { encryptedSymmetricKey, symmetricKey, encryptedString };
+  return {
+    //   encryptedSymmetricKey,
+    symmetricKey,
+    encryptedString,
+  };
 }
 
 // example conditions for users that at least have 1 token to decrypt a message
@@ -55,54 +59,57 @@ export async function encryptString(authSig, accessControlConditions, chain, mes
 //     }
 // ]
 
-
-
 // Function to encrypt a message, the conditions to decrypt, chain and the message
 
-export async function encryptSaveMessage(accessControlConditions, chain, message) {
+export async function encryptSaveMessage(
+  accessControlConditions,
+  chain,
+  message
+) {
+  // await startClient();
 
-    // await startClient();
+  const authSig = await checkAndSignAuthMessage(chain);
 
-    const authSig = await checkAndSignAuthMessage(chain);
+  // const chain = 'rinkeby';
 
-    // const chain = 'rinkeby';
+  const { encryptedSymmetricKey, symmetricKey, encryptedString } =
+    await encryptString(authSig, accessControlConditions, chain, message);
 
-    const { encryptedSymmetricKey, symmetricKey, encryptedString } = await encryptString(authSig, accessControlConditions, chain, message);
+  console.log(encryptedSymmetricKey);
+  console.log(symmetricKey);
+  console.log(encryptedString);
 
-    console.log(encryptedSymmetricKey);
-    console.log(symmetricKey);
-    console.log(encryptedString);
+  // encryptedSymmetricKeyG = encryptedSymmetricKey;
+  // symmetricKeyG = symmetricKey;
+  // encryptedStringG = encryptedString;
 
-    // encryptedSymmetricKeyG = encryptedSymmetricKey;
-    // symmetricKeyG = symmetricKey;
-    // encryptedStringG = encryptedString;
-
-    return { encryptedSymmetricKey, symmetricKey, encryptedString };
-
+  return { encryptedSymmetricKey, symmetricKey, encryptedString };
 }
-
 
 // Function to decrypt the message, you need the conditions to decrypt,  the
 //  results of the encryptSaveMessage (encryptedSymmetricKey,encryptedString) and the chain
 
-export async function decryptMessage(accessControlConditions, encryptedSymmetricKey, encryptedString, chain) {
+export async function decryptMessage(
+  accessControlConditions,
+  encryptedSymmetricKey,
+  encryptedString,
+  chain
+) {
+  const authSig = await checkAndSignAuthMessage(chain);
+  // const chain = 'rinkeby';
 
-    const authSig = await checkAndSignAuthMessage(chain);
-    // const chain = 'rinkeby';
+  const symmetricKey = await window.litNodeClient.getEncryptionKey({
+    accessControlConditions,
+    // Note, below we convert the encryptedSymmetricKey from a UInt8Array to a hex string.  This is because we obtained the encryptedSymmetricKey from "saveEncryptionKey" which returns a UInt8Array.  But the getEncryptionKey method expects a hex string.
+    toDecrypt: LitJsSdk.uint8arrayToString(encryptedSymmetricKey, "base16"),
+    chain,
+    authSig,
+  });
 
-    const symmetricKey = await window.litNodeClient.getEncryptionKey({
-        accessControlConditions,
-        // Note, below we convert the encryptedSymmetricKey from a UInt8Array to a hex string.  This is because we obtained the encryptedSymmetricKey from "saveEncryptionKey" which returns a UInt8Array.  But the getEncryptionKey method expects a hex string.
-        toDecrypt: LitJsSdk.uint8arrayToString(encryptedSymmetricKey, "base16"),
-        chain,
-        authSig
-    })
+  const decryptedString = await LitJsSdk.decryptString(
+    encryptedString,
+    symmetricKey
+  );
 
-    const decryptedString = await LitJsSdk.decryptString(
-        encryptedString,
-        symmetricKey
-    );
-
-    return decryptedString;
+  return decryptedString;
 }
-
