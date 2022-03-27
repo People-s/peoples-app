@@ -12,57 +12,10 @@ import { MdCopyright, MdSupervisorAccount, MdThumbUp } from "react-icons/md";
 import AppNetworkContext from "../AppNetworksContext/AppNetworkContext";
 import { ChannelListProps } from "../JoinChannelList/JoinChannelList";
 
-const mockChannels = [
-  {
-    title: "Dogs Lovers",
-    description:
-      "We love dogs and we speak about them, but you can also join if you have a cat",
-    coin: "10 BNB",
-    members: 543,
-    votes: 2,
-  },
-  {
-    title: "Football Fans",
-    description:
-      "We love dogs and we speak about them, but you can also join if you have a cat",
-    coin: "10 BNB",
-    members: 543,
-    votes: 2,
-  },
-  {
-    title: "Football Fans",
-    description:
-      "We love dogs and we speak about them, but you can also join if you have a cat",
-    coin: "10 BNB",
-    members: 543,
-    votes: 2,
-  },
-  {
-    title: "Football Fans",
-    description:
-      "We love dogs and we speak about them, but you can also join if you have a cat",
-    coin: "10 BNB",
-    members: 543,
-    votes: 2,
-  },
-  {
-    title: "Football Fans",
-    description:
-      "We love dogs and we speak about them, but you can also join if you have a cat",
-    coin: "10 BNB",
-    members: 543,
-    votes: 2,
-  },
-  {
-    title: "Football Fans",
-    description:
-      "We love dogs and we speak about them, but you can also join if you have a cat",
-    coin: "10 BNB",
-    members: 543,
-    votes: 2,
-  },
-];
-const ChannelList: React.FC<ChannelListProps> = ({ typeOfTheList }) => {
+const ChannelList: React.FC<ChannelListProps> = ({
+  typeOfTheList,
+  mockChannels,
+}) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const { colorMode } = useColorMode();
   const tileBackground = useMemo(
@@ -77,7 +30,8 @@ const ChannelList: React.FC<ChannelListProps> = ({ typeOfTheList }) => {
   return (
     <Box>
       {mockChannels.map(
-        ({ title, description, coin, members, votes }, index) => {
+        /* @ts-ignore */
+        ({ title, description, coin, members, votes }, index: any) => {
           return (
             <Flex
               key={index}
@@ -110,6 +64,7 @@ const ChannelList: React.FC<ChannelListProps> = ({ typeOfTheList }) => {
                 <Text
                   fontSize="xs"
                   overflow="hidden"
+                  width="80%"
                   textOverflow="ellipsis"
                   textColor={index === selectedIndex ? "gray.800" : "inherit"}
                 >
@@ -120,13 +75,15 @@ const ChannelList: React.FC<ChannelListProps> = ({ typeOfTheList }) => {
                 <Icon
                   as={MdCopyright}
                   mt="auto"
-                  ml="2.5"
+                  ml="30%"
+                  mr="auto"
                   textColor={index === selectedIndex ? "gray.800" : "inherit"}
                 />
                 <Text
                   fontSize="xs"
                   overflow="hidden"
                   textOverflow="ellipsis"
+                  textAlign="center"
                   textColor={index === selectedIndex ? "gray.800" : "inherit"}
                 >
                   {coin}
@@ -144,6 +101,8 @@ const ChannelList: React.FC<ChannelListProps> = ({ typeOfTheList }) => {
                     fontSize="xs"
                     overflow="hidden"
                     textOverflow="ellipsis"
+                    ml="auto"
+                    width="4rem"
                     textColor={index === selectedIndex ? "gray.800" : "inherit"}
                   >
                     {members}
