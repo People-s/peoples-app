@@ -31,7 +31,7 @@ const Home: FC = () => {
       initBackground(colorMode);
       initLogo(colorMode);
     };
-  }, []);
+  }, [colorMode]);
 
   const { account } = useContext(Web3ModalContext);
 
