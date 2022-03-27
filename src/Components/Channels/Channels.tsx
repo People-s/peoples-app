@@ -170,6 +170,7 @@ const Channels: React.FC<ChannelsProps> = ({
                     colorScheme="blue"
                     onClick={() => {
                       followAttempt(Number(profileId));
+                      onClose();
                     }}
                   >
                     Continue
