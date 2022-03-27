@@ -66,11 +66,11 @@ const ChannelList: React.FC<ChannelListProps> = ({ typeOfTheList }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const { colorMode } = useColorMode();
   const tileBackground = useMemo(
-    () => (colorMode === "dark" ? "gray.200" : "gray.100"),
+    () => (colorMode === "dark" ? "blue.800" : "blue.50"),
     [colorMode]
   );
   const tileBorderColor = useMemo(
-    () => (colorMode === "dark" ? "gray.400" : "gray.300"),
+    () => (colorMode === "dark" ? "blue.400" : "gray.300"),
     [colorMode]
   );
 
@@ -103,7 +103,8 @@ const ChannelList: React.FC<ChannelListProps> = ({ typeOfTheList }) => {
               />
               <Box overflow="hidden">
                 <Text
-                  textColor={index === selectedIndex ? "blue.500" : "blue.200"}
+                  textColor={colorMode === "dark" ? "blue.200" : "blue.400"}
+                  // textColor="blue.400"
                 >
                   {title}
                 </Text>
@@ -111,7 +112,6 @@ const ChannelList: React.FC<ChannelListProps> = ({ typeOfTheList }) => {
                   fontSize="xs"
                   overflow="hidden"
                   textOverflow="ellipsis"
-                  textColor={index === selectedIndex ? "gray.800" : "inherit"}
                 >
                   {description}
                 </Text>
@@ -121,13 +121,11 @@ const ChannelList: React.FC<ChannelListProps> = ({ typeOfTheList }) => {
                   as={MdCopyright}
                   mt="auto"
                   ml="2.5"
-                  textColor={index === selectedIndex ? "gray.800" : "inherit"}
                 />
                 <Text
                   fontSize="xs"
                   overflow="hidden"
                   textOverflow="ellipsis"
-                  textColor={index === selectedIndex ? "gray.800" : "inherit"}
                 >
                   {coin}
                 </Text>
@@ -138,13 +136,11 @@ const ChannelList: React.FC<ChannelListProps> = ({ typeOfTheList }) => {
                     as={MdSupervisorAccount}
                     mt="auto"
                     ml="1"
-                    color={index === selectedIndex ? "gray.800" : "inherit"}
                   />
                   <Text
                     fontSize="xs"
                     overflow="hidden"
                     textOverflow="ellipsis"
-                    textColor={index === selectedIndex ? "gray.800" : "inherit"}
                   >
                     {members}
                   </Text>
@@ -155,13 +151,11 @@ const ChannelList: React.FC<ChannelListProps> = ({ typeOfTheList }) => {
                     as={MdThumbUp}
                     mt="auto"
                     ml="1"
-                    color={index === selectedIndex ? "gray.800" : "inherit"}
                   />
                   <Text
                     fontSize="xs"
                     overflow="hidden"
                     textOverflow="ellipsis"
-                    textColor={index === selectedIndex ? "gray.800" : "inherit"}
                   >
                     {votes}/10
                   </Text>
