@@ -76,10 +76,11 @@ const JoinChannelList: React.FC<ChannelListProps> = ({
     <Box>
       <HStack borderBottom="1px solid #E4E4E4" p="2" justify="space-between">
         <Text fontSize="xl" fontWeight="bold">
-          Join a Channel
+          {typeOfTheList === "Join"
+            ? "Join a channel"
+            : "Vote for a channel proposal"}
         </Text>
       </HStack>
-
       <ChannelList typeOfTheList={typeOfTheList} />
     </Box>
   );
