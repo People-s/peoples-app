@@ -3,6 +3,7 @@ import React, { createContext, FC, useEffect } from "react";
 import Web3Modal, { IProviderOptions } from '@0xsequence/web3modal'
 import { sequence } from '0xsequence'
 import { useColorMode } from "@chakra-ui/react";
+import { startClient } from "../../LitProtocol";
 
 export interface Web3ModalContextValue extends Pick<Web3Ethers, 'account' | 'error' | 'active'> {
     web3Modal: Web3Modal;
@@ -51,6 +52,7 @@ const Web3ModalProvider: FC = ({ children }) => {
             if (web3Modal.cachedProvider && active) {
                 const wallet =  await web3Modal.connect();
                 await activate(wallet)
+                await startClient()
             }
         }
         initCached();
@@ -67,6 +69,7 @@ const Web3ModalProvider: FC = ({ children }) => {
         try {
             const wallet = await web3Modal.connect();
             await activate(wallet);
+            await startClient()
             if(callback) {
                 callback()
             }
