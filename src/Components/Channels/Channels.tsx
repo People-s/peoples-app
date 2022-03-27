@@ -7,28 +7,34 @@ import {
   Button,
   Spacer,
   useColorMode,
+  Icon,
+  HStack,
   useDisclosure,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
   ModalFooter,
+  ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
 import React, { useContext, useMemo } from "react";
 
 import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
+import { MdCreate, MdThumbUp, MdViewList } from "react-icons/md";
 import AppNetworkContext from "../AppNetworksContext/AppNetworkContext";
 
 export interface ChannelsProps {
   activeChannel: any;
   setActiveChannel?: any;
+  changeView?: any;
   channels: any;
 }
 
 const Channels: React.FC<ChannelsProps> = ({
   activeChannel,
   setActiveChannel,
+  changeView,
   channels,
 }) => {
   const { followAttempt } = useContext(AppNetworkContext);
@@ -56,7 +62,41 @@ const Channels: React.FC<ChannelsProps> = ({
       >
         Channels
       </Heading>
-
+      <HStack justify="space-between" mb={4}>
+        <Button
+          colorScheme="blue"
+          size="sm"
+          leftIcon={<Icon as={MdViewList} mt="auto" />}
+          onClick={() => {
+            changeView("Join");
+            setActiveChannel(null);
+          }}
+        >
+          Join
+        </Button>{" "}
+        <Button
+          colorScheme="blue"
+          size="sm"
+          leftIcon={<Icon as={MdCreate} mt="auto" />}
+          onClick={() => {
+            changeView("Create");
+            setActiveChannel(null);
+          }}
+        >
+          Create
+        </Button>{" "}
+        <Button
+          colorScheme="blue"
+          size="sm"
+          leftIcon={<Icon as={MdThumbUp} mt="auto" />}
+          onClick={() => {
+            changeView("Vote");
+            setActiveChannel(null);
+          }}
+        >
+          Vote
+        </Button>
+      </HStack>
       {/*@ts-ignore */}
       {channels.map(({ id, attributes: { handle, profileId } }) => {
         return (
