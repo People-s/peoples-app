@@ -31,7 +31,10 @@ const CreatePostDialog: FC<CreatePostModalProps> = ({
 
   const handlePostCreate = () => {
     console.log("value", value);
+
     if (value?.length && onPostCreate) {
+      if (isSecret) {
+      }
       onPostCreate(value);
     }
   };
@@ -66,7 +69,14 @@ const CreatePostDialog: FC<CreatePostModalProps> = ({
           <Button variant="ghost" onClick={onClose}>
             Close
           </Button>
-          <Button colorScheme="blue" mr={3} onClick={handlePostCreate}>
+          <Button
+            colorScheme="blue"
+            mr={3}
+            onClick={() => {
+              handlePostCreate();
+              onClose();
+            }}
+          >
             Create Post
           </Button>
         </ModalFooter>
