@@ -57,20 +57,14 @@ export function initLogo(colorMode: string) {
 
   const sphereMaterial = new THREE.PointsMaterial({
     // transparent: true,
-    size: 0.007,
+    size: 0.005,
   });
 
   sphereMaterial.color = particleColor;
 
-  const dotMaterial = new THREE.PointsMaterial({
-    // transparent: true,
-    size: 0.007,
-    color: colorMode === "dark" ? "#63b3ed" : "#2b6cb0",
-  });
-
   // Mesh
   const torus = new THREE.Points(torusGeometry, sphereMaterial);
-  const sphere = new THREE.Points(sphereGeometry, dotMaterial);
+  const sphere = new THREE.Points(sphereGeometry, sphereMaterial);
   const cylinder = new THREE.Points(cylinderGeometry, sphereMaterial);
   torus.position.setX(0.4);
   torus.position.setY(0.2);
