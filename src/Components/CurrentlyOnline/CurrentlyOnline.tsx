@@ -1,4 +1,12 @@
-import { Heading, Box, Flex, Avatar, Text, useColorMode } from "@chakra-ui/react";
+import {
+  Heading,
+  Box,
+  Flex,
+  Avatar,
+  Text,
+  useColorMode,
+  Button,
+} from "@chakra-ui/react";
 import React, { useMemo, useState } from "react";
 
 const mockCurrentlyOnline = [
@@ -42,8 +50,14 @@ const mockCurrentlyOnline = [
 const CurrentlyOnline: React.FC = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const { colorMode } = useColorMode();
-  const tileBackground = useMemo(() => colorMode === 'dark' ? "blue.800" : "blue.50", [colorMode]);
-  const tileBorderColor = useMemo(() => colorMode === 'dark' ? "blue.700" : "blue.100", [colorMode]);
+  const tileBackground = useMemo(
+    () => (colorMode === "dark" ? "blue.800" : "blue.50"),
+    [colorMode]
+  );
+  const tileBorderColor = useMemo(
+    () => (colorMode === "dark" ? "blue.700" : "blue.100"),
+    [colorMode]
+  );
   return (
     <Box>
       <Heading
@@ -67,7 +81,9 @@ const CurrentlyOnline: React.FC = () => {
             alignItems="center"
             onClick={() => setSelectedIndex(index)}
             borderWidth={1}
-            borderColor={index === selectedIndex ? tileBorderColor : "transparent"}
+            borderColor={
+              index === selectedIndex ? tileBorderColor : "transparent"
+            }
             bgColor={index === selectedIndex ? tileBackground : "transparent"}
           >
             <Avatar
@@ -88,6 +104,11 @@ const CurrentlyOnline: React.FC = () => {
                 {address}
               </Text>
             </Box>
+            {selectedIndex === index && (
+              <Button colorScheme="blue" size="xs" ml={6}>
+                Call
+              </Button>
+            )}
           </Flex>
         );
       })}
