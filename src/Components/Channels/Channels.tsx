@@ -63,14 +63,8 @@ const Channels: React.FC<ChannelsProps> = ({
 }) => {
   const { followAttempt } = useContext(AppNetworkContext);
   const { colorMode } = useColorMode();
-  const tileBackground = useMemo(
-    () => (colorMode === "dark" ? "blue.800" : "blue.50"),
-    [colorMode]
-  );
-  const tileBorderColor = useMemo(
-    () => (colorMode === "dark" ? "blue.700" : "blue.100"),
-    [colorMode]
-  );
+  const tileBackground = useMemo(() => colorMode === 'dark' ? "blue.800" : "blue.50", [colorMode]);
+  const tileBorderColor = useMemo(() => colorMode === 'dark' ? "blue.700" : "blue.100", [colorMode]);
   return (
     <Box>
       <Heading
@@ -132,10 +126,10 @@ const Channels: React.FC<ChannelsProps> = ({
             alignItems="center"
             onClick={() => setActiveChannel(profileId)}
             borderColor={
-              id === activeChannel ? tileBorderColor : "transparent"
+              profileId === activeChannel ? tileBorderColor : "transparent"
             }
             borderWidth={1}
-            bgColor={id === activeChannel ? tileBackground : "transparent"}
+            bgColor={profileId === activeChannel ? tileBackground : "transparent"}
           >
             <Avatar
               cursor="pointer"
