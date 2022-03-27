@@ -24,11 +24,14 @@ const Home: FC = () => {
   const { colorMode } = useColorMode();
 
   useEffect(() => {
-    window.onload = function () {
+    initBackground(colorMode);
+    initLogo(colorMode);
+
+    return () => {
       initBackground(colorMode);
       initLogo(colorMode);
     };
-  });
+  }, []);
 
   const { account } = useContext(Web3ModalContext);
 
