@@ -3,52 +3,36 @@
 
 ## About The Project
 
-Decentralized social media platform that helps connect web2 and web3 people, plus let's users take the ownership of their own content.
+Decentralized social media platform that helps connect Web 2 and Web 3 people, and let's users take the ownership of their own content.
 
 ### Built With
 
 - [Hardhat](https://hardhat.org/)
 - [Solidity](https://docs.soliditylang.org/en/v0.8.11/)
-- [Alchemy](https://www.alchemy.com/)
 - [React](https://reactjs.org/)
-- Moralis
+- [TypeScript](https://www.typescriptlang.org/)
+- [Moralis](https://moralis.io/)
+- [Three.js](https://threejs.org/)
+- [Sequence](https://sequence.build/)
+- [Lens Protocol](https://lens.dev/)
+- [Live Peer](https://livepeer.org/)
+- [Lit Protocol](https://litprotocol.com/)
+- [Ceramic Protocol](https://ceramic.network/)
 
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/en/download/)
-- [Metmask](https://metamask.io/)
 
 ### Installation
 
 1. Install all the dependencies - `npm install`
 
-2. Create an account on Alchemy, then create a new app and select "Rinkeby" as a network.
-
-3. Create a `.env` file in the root folder and add the
-   following variables:
-
-```
-   API_URL=<ALCHEMY_API_URL>
-   API_KEY=<THE_LAST_PART OF_THE_API_URL>
-   PRIVATE_KEY=<YOUR_WALLET'S_PRIVATE_KEY>
-   CONTRACT_ADDRESS=<DEPOLOYED_TOKEN_ADDRESS>
-   REACT_APP_CONTRACT_ADDRESS=<DEPOLOYED_TOKEN_ADDRESS>
-```
-
-Hint: You can get your own API key in the alchemy dashboard. The last part can be added after deploying the token.
-
-### Compiling the Contract
-
-run `npx hardhat compile` command.
-
-### Deploying Smart Contract
-
-Run `npx hardhat run scripts/deploy.js --network rinkeby` command.
+2. Start up the live server - `npm start`
 
 ## This has been created during ETHGlobal LFGrow Hackathon
 
-[People's- ETH Global Showcase]()
+[People's - ETH Global Showcase](showcase.ethglobal.com/lfgrow/people-s-9cmwz)
 
 ### Live Preview
 
-[]()
+[https://peoples.on.fleek.co/](https://peoples.on.fleek.co/)
