@@ -12,6 +12,8 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 
+import { encryptString } from "../../LitProtocol";
+
 interface CreatePostModalProps {
   isOpen: boolean;
   onOpen?: () => void;
@@ -29,13 +31,19 @@ const CreatePostDialog: FC<CreatePostModalProps> = ({
   const textFieldRef = useRef<HTMLDivElement>(null);
   let [value, setValue] = useState("");
 
-  const handlePostCreate = () => {
-    console.log("value", value);
-
+  const handlePostCreate = async () => {
     if (value?.length && onPostCreate) {
       if (isSecret) {
+        const {
+          // encryptedSymmetricKey,
+          // symmetricKey,
+          encryptedString,
+        } = await encryptString(value);
+        onPostCreate(encryptedString.text());
+        return;
+      } else {
+        onPostCreate(value);
       }
-      onPostCreate(value);
     }
   };
 
