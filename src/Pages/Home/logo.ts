@@ -1,3 +1,4 @@
+import { group } from "console";
 import * as THREE from "three";
 
 export function initLogo() {
@@ -16,6 +17,8 @@ export function initLogo() {
 
   let scrollY = 0;
 
+  // rotation
+
   function animateParticles() {
     scrollY = window.scrollY;
   }
@@ -32,7 +35,18 @@ export function initLogo() {
   scene.add(camera);
 
   // Objects
-  const geometry = new THREE.TorusGeometry(0.7, 0.2, 16, 100);
+  const torusGeometry = new THREE.TorusGeometry(0.4, 0.2, 16, 100);
+  const sphereGeometry = new THREE.SphereGeometry(0.2, 30, 16, 4, 6.2, 0, 3.1);
+  const cylinderGeometry = new THREE.CylinderGeometry(
+    0.2,
+    0.2,
+    1.4,
+    40,
+    40,
+    false
+  );
+
+  const groups = new THREE.Group();
 
   // Materials
 
@@ -44,10 +58,20 @@ export function initLogo() {
   sphereMaterial.color = new THREE.Color(0xfffffff);
 
   // Mesh
-  const sphere = new THREE.Points(geometry, sphereMaterial);
-  // sphere.position.setX(1.4);
+  const torus = new THREE.Points(torusGeometry, sphereMaterial);
+  const sphere = new THREE.Points(sphereGeometry, sphereMaterial);
+  const cylinder = new THREE.Points(cylinderGeometry, sphereMaterial);
+  torus.position.setX(0.4);
+  torus.position.setY(0.2);
+  sphere.position.setY(1.1);
+  sphere.position.setX(0.4);
+  cylinder.position.setY(-0.6);
 
-  scene.add(sphere);
+  groups.add(torus);
+  groups.add(cylinder);
+  groups.add(sphere);
+
+  scene.add(groups);
 
   // Lights
 
@@ -60,8 +84,8 @@ export function initLogo() {
     const elapsedTime = clock.getElapsedTime();
 
     // Update objects
-    sphere.rotation.y = 0.2 * elapsedTime;
-    sphere.position.y = scrollY * 0.001;
+    groups.rotation.y = 0.2 * elapsedTime;
+    groups.position.y = scrollY * 0.0008;
 
     // Render
     renderer.clear();
