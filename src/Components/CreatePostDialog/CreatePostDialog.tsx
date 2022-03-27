@@ -1,77 +1,74 @@
-import { FC, useMemo, useRef, useState } from 'react'
+import { FC, useMemo, useRef, useState } from "react";
 import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    Button,
-    useDisclosure,
-    Box,
-    useColorMode,
-} from '@chakra-ui/react'
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Button,
+  useDisclosure,
+  Box,
+  useColorMode,
+  Textarea,
+} from "@chakra-ui/react";
 
 interface CreatePostModalProps {
-    isOpen: boolean;
-    onOpen?: () => void;
-    onClose: () => void;
-    onPostCreate?: (content: string) => void;
+  isOpen: boolean;
+  onOpen?: () => void;
+  onClose: () => void;
+  onPostCreate?: (content: string) => void;
 }
 
+const CreatePostDialog: FC<CreatePostModalProps> = ({
+  isOpen = false,
+  onOpen,
+  onClose,
+  onPostCreate,
+}) => {
+  const textFieldRef = useRef<HTMLDivElement>(null);
+  let [value, setValue] = useState("");
 
-const CreatePostDialog: FC<CreatePostModalProps> = ({ isOpen = false, onOpen, onClose, onPostCreate }) => {
-    const textFieldRef = useRef<HTMLDivElement>(null);
-    const [isPristine, setIsPristine] = useState(true);
-    const { colorMode } = useColorMode();
-    const textFieldBg = useMemo(
-        () => (colorMode === "dark" ? "blue.800" : "gray.50"),
-        [colorMode]
-    );
-
-
-    const handlePostCreate = () => {
-        const text = textFieldRef.current?.textContent;
-
-        if (!isPristine && text?.length && onPostCreate) {
-            onPostCreate(text)
-        }
+  const handlePostCreate = () => {
+    console.log("value", value);
+    if (value?.length && onPostCreate) {
+      onPostCreate(value);
     }
-    return (
-        <Modal isOpen={isOpen} onClose={onClose} initialFocusRef={textFieldRef}>
-            <ModalOverlay />
-            <ModalContent>
-                <ModalHeader>Create new post</ModalHeader>
-                <ModalCloseButton />
-                <ModalBody p={4} >
-                    <Box
-                        ref={textFieldRef}
-                        _focus={{ outline: 'none' }}
-                        _focusVisible={{
-                            outline: 'none',
-                            backgroundColor: textFieldBg
-                        }}
-                        p={2}
-                        suppressContentEditableWarning={true}
-                        contentEditable
-                        height={200} width={'100%'} onInput={() => {
-                            setIsPristine(false);
-                        }}
-                    >
-                        This is just a placehodler
-                    </Box>
-                </ModalBody>
+  };
 
-                <ModalFooter>
-                    <Button colorScheme='blue' mr={3} onClick={handlePostCreate}>
-                        Create Post
-                    </Button>
-                    <Button variant='ghost' onClick={onClose}>Close</Button>
-                </ModalFooter>
-            </ModalContent>
-        </Modal>
-    )
-}
+  let handleInputChange = (e: { target: { value: any } }) => {
+    let inputValue = e.target.value;
+    setValue(inputValue);
+  };
+
+  return (
+    <Modal isOpen={isOpen} onClose={onClose} initialFocusRef={textFieldRef}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>Create new post</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody p={4}>
+          <Textarea
+            value={value}
+            onChange={handleInputChange}
+            placeholder="This is just a placehodler"
+            size="sm"
+            height={10}
+          />
+        </ModalBody>
+
+        <ModalFooter>
+          <Button colorScheme="blue" mr={3} onClick={handlePostCreate}>
+            Create Post
+          </Button>
+          <Button variant="ghost" onClick={onClose}>
+            Close
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+  );
+};
 
 export default CreatePostDialog;
