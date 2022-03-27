@@ -12,10 +12,10 @@ import { useMoralis } from "react-moralis";
 
 const Dashboard: FC = () => {
   const [view, setView] = useState<string | undefined>("Join");
-  const [profiles, setProfiles] = useState<any[]>([])
+  const [profiles, setProfiles] = useState<any[]>([]);
   const [activeChannel, setActiveChannel] = useState<string | null>(null);
   const { addresses, getProfiles } = useContext(AppNetworkContext);
-  const { isInitialized } = useMoralis()
+  const { isInitialized } = useMoralis();
 
   const { colorMode } = useColorMode();
   const boxBackground = useMemo(
@@ -25,17 +25,20 @@ const Dashboard: FC = () => {
 
   useEffect(() => {
     async function getChannels() {
-      if(isInitialized) {
+      if (isInitialized) {
         const receivedProfiles = await getProfiles();
         const channels = receivedProfiles.filter((p: any) => {
-          return p.attributes.creator.toLowerCase() === addresses['Peoples Channel'].toLowerCase()
-        })
+          return (
+            p.attributes.creator.toLowerCase() ===
+            addresses["Peoples Channel"].toLowerCase()
+          );
+        });
         //@ts-ignore
         setProfiles(channels);
       }
     }
-    getChannels()
-  }, [isInitialized])
+    getChannels();
+  }, [isInitialized]);
 
   return (
     <Flex p={6} flex="1 1 auto">
@@ -69,7 +72,11 @@ const Dashboard: FC = () => {
         {/*<CreateNetworks /> */}
 
         {activeChannel ? (
-          <PostWall channel={profiles.find(p => p.attributes.profileId === activeChannel)} />
+          <PostWall
+            channel={profiles.find(
+              (p) => p.attributes.profileId === activeChannel
+            )}
+          />
         ) : view === "Create" ? (
           <NewChannel
             typeOfTheList={view}
